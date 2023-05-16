@@ -1,4 +1,4 @@
-package br.edu.ifrs.canoas.lds.webapp.config;
+package catamusico.webapp.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package br.edu.ifrs.canoas.lds.webapp.config;
+package catamusico.webapp.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

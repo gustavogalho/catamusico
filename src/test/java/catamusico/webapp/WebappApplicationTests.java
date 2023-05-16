@@ -1,4 +1,4 @@
-package br.edu.ifrs.canoas.lds.webapp;
+package catamusico.webapp;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

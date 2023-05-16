@@ -1,4 +1,4 @@
-package br.edu.ifrs.canoas.lds.webapp.config;
+package catamusico.webapp.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,8 @@ public class MVCConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		super.addViewControllers(registry);
-		registry.addViewController("/login").setViewName("/auth/login");
+		//registry.addViewController("/login").setViewName("/auth/login");
+		registry.addViewController("/").setViewName("/index");
 		registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
 	}
 

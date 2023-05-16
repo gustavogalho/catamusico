@@ -110,8 +110,8 @@ local.properties
 .cache-main
 .scala_dependencies
 .worksheet
-### Example user template template
-### Example user template
+### Example login template template
+### Example login template
 
 # IntelliJ project files
 .idea
@@ -198,7 +198,7 @@ Temporary Items
 *.tmPreferences.cache
 *.stTheme.cache
 
-# workspace files are user-specific
+# workspace files are login-specific
 *.sublime-workspace
 
 # project files should be checked into the repository, unless a significant
@@ -216,7 +216,7 @@ Package Control.system-ca-bundle
 Package Control.cache/
 Package Control.ca-certs/
 Package Control.merged-ca-bundle
-Package Control.user-ca-bundle
+Package Control.login-ca-bundle
 oscrypto-ca-bundle.crt
 bh_unicode_properties.cache
 

@@ -1,72 +1,38 @@
-<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="/css/Login.css" rel="stylesheet" id="login-css">
 
-<html xmlns="http://www.w3.org/1999/xhtml"layouts>
-
-<head th:include="/layouts/fragments/scripts :: head" />
-
-<style>
-div {
-	background-color: white;
-}
-</style>
-
-<body class="hold-transition login-page">
-	<div class="login-box">
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
 
 
+<div class="sidenav">
+    <div class="login-main-text">
 
-		<!-- /.login-logo -->
-		<div class="login-box-body">
-            <img th:src="@{/img/canoasLogo.jpg}" style="width: 80%"/>
-			<p class="login-box-msg" th:text="#{login.info}"></p>
-
-			<form name="f" th:action="@{/login}" method="post"
-				class="form-signin">
-
-				<div th:if="${param.error}" class="alert alert-danger"
-					th:text="#{login.error}"></div>
-
-				<div th:if="${param.logout}" class="alert alert-success"
-					th:text="#{login.disconnect}"></div>
-
-				<div class="form-group has-feedback">
-					<input type="text" id="username" name="username"
-						class="form-control" th:placeholder="#{login.user}"
-						required="true" /> <span
-						class="glyphicon glyphicon-user form-control-feedback"></span>
-				</div>
-
-				<div class="form-group has-feedback">
-					<input type="password" id="password" name="password"
-						class="form-control" th:placeholder="#{login.password}"
-						required="true" /> <span
-						class="glyphicon glyphicon-lock form-control-feedback"></span>
-				</div>
-
-				<div class="row">
-					<div class="col-xs-8"></div>
-
-					<!-- /.col -->
-					<div class="col-xs-4">
-						<button type="submit" class="btn btn-primary btn-block btn-flat"
-							th:text="#{login.enter}"></button>
-					</div>
-
-					<!-- /.col -->
-				</div>
-			</form>
-
-			<!-- /.social-auth-links -->
-		</div>
-
-		<!-- /.login-box-body -->
-	</div>
-
-	<!-- /.login-box -->
-	<div th:include="/layouts/fragments/scripts :: javascripts" />
-
-
-
-</body>
-
+        <h2>CataMúsico<br> Login</h2>
+        <p>Faça Login ou Cadastre-se.</p>
+    </div>
+</div>
+<div class="main">
+    <div class="col-md-6 col-sm-12">
+        <div class="login-form">
+            <form id="form-login" th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label>E-mail</label>
+                    <input id="username" name="username" type="text" class="form-control" placeholder="E-mail">
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input id="password" name="password" type="password" class="form-control" placeholder="Senha">
+                </div>
+                <button type="submit" class="btn btn-black">Entrar</button>
+                <a href="/login/create" class="btn btn-secondary">Cadastre-se</a>
+            </form>
+        </div>
+    </div>
+</div>
 </html>

@@ -1,9 +1,11 @@
-package br.edu.ifrs.canoas.lds.webapp;
+package catamusico.webapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
 
-@SpringBootApplication
+
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
 public class WebappApplication {
 
 	public static void main(String[] args) {

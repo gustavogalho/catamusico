@@ -1,12 +1,10 @@
 package catamusico.webapp.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Musician {
+public class Band {
     @Id
     @GeneratedValue
     private Long id;
@@ -16,14 +14,13 @@ public class Musician {
     private String state;
     private String musicGenre;
     private String contact;
-    private String instrument;
-    private String experiences;
-    private String experienceLevel;
-    private List<File> media;
-    private Login login;
+    //@OneToOne
+    //private Login login;
+    @OneToMany
+    private List<Musician> favorites;
 
 
-    public Musician() {
+    public Band() {
 
     }
 
@@ -75,43 +72,12 @@ public class Musician {
         this.contact = contact;
     }
 
-    public String getInstrument() {
-        return instrument;
+
+    public List<Musician> getFavorites() {
+        return favorites;
     }
 
-    public void setInstrument(String instrument) {
-        this.instrument = instrument;
-    }
-
-    public String getExperiences() {
-        return experiences;
-    }
-
-    public void setExperiences(String experiences) {
-        this.experiences = experiences;
-    }
-
-    public String getExperienceLevel() {
-        return experienceLevel;
-    }
-
-    public void setExperienceLevel(String experienceLevel) {
-        this.experienceLevel = experienceLevel;
-    }
-
-    public List<File> getMedia() {
-        return media;
-    }
-
-    public void setMedia(List<File> media) {
-        this.media = media;
-    }
-
-    public Login getLogin() {
-        return login;
-    }
-
-    public void setLogin(Login login) {
-        this.login = login;
+    public void setFavorites(List<Musician> favorites) {
+        this.favorites = favorites;
     }
 }

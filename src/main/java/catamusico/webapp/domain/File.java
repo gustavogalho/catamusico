@@ -1,4 +1,4 @@
-package br.edu.ifrs.canoas.lds.webapp.domain;
+package catamusico.webapp.domain;
 
 import org.springframework.util.Base64Utils;
 

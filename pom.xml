@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>br.edu.ifrs.canoas.lds</groupId>
+    <groupId>catamusico</groupId>
     <artifactId>webapp</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>webapp</name>
-    <description>Aplicacao base do trabalho 1</description>
+    <name>CataMusico</name>
+    <description>TCC - Gustavo Galho</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
