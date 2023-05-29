@@ -17,8 +17,8 @@ public class Musician {
     private String instrument;
     private String experiences;
     private String experienceLevel;
-    @OneToMany
-    private List<File> media;
+    // @OneToMany
+    // private List<File> media;
     //@OneToOne
     //private Login login;
 
@@ -99,12 +99,19 @@ public class Musician {
         this.experienceLevel = experienceLevel;
     }
 
-    public List<File> getMedia() {
-        return media;
-    }
+    // public List<File> getMedia() {
+    //     return media;
+    // }
 
-    public void setMedia(List<File> media) {
-        this.media = media;
+    // public void setMedia(List<File> media) {
+    //     this.media = media;
+    // }
+
+    @Override
+    public String toString() {
+        return "Musician [id=" + id + ", name=" + name + ", city=" + city + ", state=" + state + ", musicGenre="
+                + musicGenre + ", contact=" + contact + ", instrument=" + instrument + ", experiences=" + experiences
+                + ", experienceLevel=" + experienceLevel + "]";
     }
 
 
