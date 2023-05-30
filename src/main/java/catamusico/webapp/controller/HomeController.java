@@ -4,20 +4,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import catamusico.webapp.service.MusicianService;
 
 @Controller
 public class HomeController {
+
 	@Autowired
 	private MusicianService musicianService;
 
-	// @GetMapping("/")
-	// public ModelAndView greetings(Model model) {
-	// 	model.addAttribute("musicians", musicianService.findAllMusicians());
-	// 	return new ModelAndView("/index");
-	// }
+	@GetMapping("/register")
+	public ModelAndView register() {
+		return new ModelAndView("/register");
+	}
+
+	@GetMapping("/login")
+	public ModelAndView getLogin() {
+		return new ModelAndView("/auth/login");
+	}
+
+	@PostMapping("/login")
+	public ModelAndView postLogin(Model model) {
+		// loginServive.login();
+		return greetings(model);
+	}
+
+	@GetMapping("/home")
+	public ModelAndView greetings(Model model) {
+		model.addAttribute("musicians", musicianService.getTop6Latest());
+		return new ModelAndView("/index");
+	}
 
 	@GetMapping("/search")
 	public ModelAndView search() {

@@ -1,108 +1,91 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <link href="/css/Login.css" rel="stylesheet" id="login-css">
-    <script type="text/javascript" language="javascript" src="/js/form.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="/css/Login.css" rel="stylesheet" id="login-css">
+<script type="text/javascript" language="javascript" src="/js/form.js"></script>
 
-    <meta charset="UTF-8">
-    <title>Cadastro</title>
+<meta charset="UTF-8">
+<title>Cadastro</title>
 </head>
 <body>
-<div class="sidenav">
-    <div class="login-main-text">
-        <h2>CataMúsico<br>Cadastro</h2>
+	<div class="sidenav">
+		<div class="login-main-text">
+			<h2>
+				CataMúsico<br>Cadastro
+			</h2>
 
-    </div>
-</div>
-<div class="main">
-    <div class="col-md-6 col-sm-12">
-        <div class="register-form">
-            <form id="form-login" action="/login" method="post">
+		</div>
+	</div>
+	<div class="main">
+		<div class="col-md-6 col-sm-12">
+			<div class="register-form">
+				<form id="form-login" action="/login" method="post">
 
-                <div class="form-group">
-                    <label>Nome</label>
-                    <input id="name" name="name" type="text" class="form-control" placeholder="Nome">
-                </div>
-                <div class="form-group">
-                    <label>E-mail</label>
-                    <input id="username" name="username" type="text" class="form-control" placeholder="E-mail">
-                </div>
-                <div class="form-group">
-                    <label>Senha</label>
-                    <input id="password" name="password" type="password" class="form-control" placeholder="Senha">
-                </div>
-                <div class="form-group">
-                    <label>Estado</label>
-                    <select class="form-control" id="state">
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Cidade</label>
-                    <select class="form-control" id="city">
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Genero Musical</label>
-                    <input id="musicGenre" name="musicGenre" type="text" class="form-control"
-                           placeholder="Genero Musical">
-                </div>
-                <div class="form-group">
-                    <label>Contato</label>
-                    <input id="contact" name="contact" type="text" class="form-control" placeholder="Contato">
-                    <small id="contactHelpText" class="form-text text-muted">
-                        Insira aqui seu telefone, email ou sua rede social para ser contatado
-                    </small>
-                </div>
-                <div class="form-group">
-                    <div class="form-check">
-                        <input value="band" class="form-check-input" type="radio" name="profileType" id="band" checked>
-                        <label class="form-check-label" for="band">
-                            Banda
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input value="musician" class="form-check-input" type="radio" name="profileType" id="musician">
-                        <label class="form-check-label" for="musician">
-                            Músico
-                        </label>
-                    </div>
-                </div>
-                <div id="instrument-div" class="form-group">
-                    <label>Instrumento</label>
-                    <select class="form-control" id="instrument" name="instrument">
-                        <option>Baixo</option>
-                        <option>Bateria</option>
-                        <option>Guitarra</option>
-                        <option>Vocal</option>
-                    </select>
-                </div>
-                <div id="experienceLevel-div" class="form-group">
-                    <label for="experienceLevel">Nível de conhecimento</label>
-                    <select class="form-control" id="experienceLevel">
-                        <option>Iniciante</option>
-                        <option>Intermediário</option>
-                        <option>Profissional</option>
-                    </select>
-                </div>
-                <div id="experiences-div" class="form-group">
-                    <label for="experiences">Experiencias</label>
-                    <textarea class="form-control" id="experiences" rows="3"></textarea>
-                </div>
-                <div id="media-div" class="form-group">
-                    <label for="media">Midia</label>
-                    <input type="file" class="form-control-file" id="media">
-                    <small id="mediaHelpText" class="form-text text-muted">
-                        Insira aqui arquivos para seu portfólio musical
-                    </small>
-                </div>
-                <button type="submit" class="btn btn-secondary">Cadastre-se</button>
-            </form>
+					<div class="form-group">
+						<label>Nome</label> <input id="name" name="name" type="text" class="form-control" placeholder="Nome">
+					</div>
+					<div class="form-group">
+						<label>E-mail</label> <input id="username" name="username" type="text" class="form-control" placeholder="E-mail">
+					</div>
+					<div class="form-group">
+						<label>Senha</label> <input id="password" name="password" type="password" class="form-control" placeholder="Senha">
+					</div>
+					<div class="form-group">
+						<label>Estado</label> <select class="form-control" id="state">
+						</select>
+					</div>
+					<div class="form-group">
+						<label>Cidade</label> <select class="form-control" id="city">
+						</select>
+					</div>
+					<div class="form-group">
+						<label>Genero Musical</label> <input id="musicGenre" name="musicGenre" type="text" class="form-control" placeholder="Genero Musical">
+					</div>
+					<div class="form-group">
+						<label>Contato</label> <input id="contact" name="contact" type="text" class="form-control" placeholder="Contato"> <small id="contactHelpText"
+							class="form-text text-muted"> Insira aqui seu telefone, email ou sua rede social para ser contatado </small>
+					</div>
+					<div class="form-group">
+						<div class="form-check">
+							<input value="band" class="form-check-input" type="radio" name="profileType" id="band" checked> <label class="form-check-label" for="band">
+								Banda </label>
+						</div>
+						<div class="form-check">
+							<input value="musician" class="form-check-input" type="radio" name="profileType" id="musician"> <label class="form-check-label" for="musician">
+								Músico </label>
+						</div>
+					</div>
+					<div id="instrument-div" class="form-group">
+						<label>Instrumento</label> <select class="form-control" id="instrument" name="instrument">
+							<option>Baixo</option>
+							<option>Bateria</option>
+							<option>Guitarra</option>
+							<option>Vocal</option>
+						</select>
+					</div>
+					<div id="experienceLevel-div" class="form-group">
+						<label for="experienceLevel">Nível de conhecimento</label> <select class="form-control" id="experienceLevel">
+							<option>Iniciante</option>
+							<option>Intermediário</option>
+							<option>Profissional</option>
+						</select>
+					</div>
+					<div id="experiences-div" class="form-group">
+						<label for="experiences">Experiencias</label>
+						<textarea class="form-control" id="experiences" rows="3"></textarea>
+					</div>
+					<div id="media-div" class="form-group">
+						<label for="media">Midia</label> <input type="file" class="form-control-file" id="media"> <small id="mediaHelpText" class="form-text text-muted">
+							Insira aqui arquivos para seu portfólio musical </small>
+					</div>
+					<button type="submit" class="btn btn-secondary">Cadastre-se</button>
+				</form>
 
-        </div>
-    </div>
-</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

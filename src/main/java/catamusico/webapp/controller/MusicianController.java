@@ -23,7 +23,6 @@ public class MusicianController {
     @GetMapping("/")
     public List<Musician> getAll(Model model)
     {
-        musicianService.findAllMusicians();
         return musicianService.findAllMusicians();
     }
 
