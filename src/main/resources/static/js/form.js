@@ -39,7 +39,7 @@ window.addEventListener('load', function() {
             .then(states => {
                 states.forEach(state => {
                     const option = document.createElement("option");
-                    option.value = state.id;
+                    option.value = state.id + "-" + state.nome;
                     option.text = state.nome;
                     selectState.add(option);
                 });
@@ -52,7 +52,7 @@ window.addEventListener('load', function() {
         while (selectCity.options.length > 0) {
             selectCity.options[0].remove();
         }
-        var stateId = document.getElementById("state").value
+        var stateId = document.getElementById("state").value.split("-")[0];
         console.log(stateId)
         fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados/" + stateId + "/municipios?orderBy=nome")
             .then(response => response.json())
@@ -60,7 +60,7 @@ window.addEventListener('load', function() {
                 console.log(cities)
                 cities.forEach(city => {
                     const option = document.createElement("option");
-                    option.value = city.id;
+                    option.value = city.nome;
                     option.text = city.nome;
                     selectCity.add(option);
                 });

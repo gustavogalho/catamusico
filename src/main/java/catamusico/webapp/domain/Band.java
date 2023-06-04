@@ -1,83 +1,122 @@
 package catamusico.webapp.domain;
 
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import catamusico.webapp.bean.RegisterBean;
 
 @Entity
 public class Band {
-    @Id
-    @GeneratedValue
-    private Long id;
 
-    private String name;
-    private String city;
-    private String state;
-    private String musicGenre;
-    private String contact;
-    //@OneToOne
-    //private Login login;
-    @OneToMany
-    private List<Musician> favorites;
+	@Id
+	@GeneratedValue
+	private Long id;
 
+	private String name;
+	private String city;
+	private String state;
+	private String musicGenre;
+	private String contact;
+	@OneToOne
+	private Login login;
+	@OneToMany
+	private List<Musician> favorites;
 
-    public Band() {
+	public Band() {
 
-    }
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Band(RegisterBean registerBean, Login login) {
+		this.name = registerBean.getName();
+		this.city = registerBean.getCity();
+		this.state = registerBean.getState().split("-")[1];
+		this.musicGenre = registerBean.getMusicGenre();
+		this.contact = registerBean.getContact();
+		this.login = login;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Band(String name, String city, String state, String musicGenre, String contact, List<Musician> favorites) {
+		this.name = name;
+		this.city = city;
+		this.state = state;
+		this.musicGenre = musicGenre;
+		this.contact = contact;
+		this.favorites = favorites;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getCity() {
-        return city;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getState() {
-        return state;
-    }
+	public String getCity() {
+		return city;
+	}
 
-    public void setState(String state) {
-        this.state = state;
-    }
+	public void setCity(String city) {
+		this.city = city;
+	}
 
-    public String getMusicGenre() {
-        return musicGenre;
-    }
+	public String getState() {
+		return state;
+	}
 
-    public void setMusicGenre(String musicGenre) {
-        this.musicGenre = musicGenre;
-    }
+	public void setState(String state) {
+		this.state = state;
+	}
 
-    public String getContact() {
-        return contact;
-    }
+	public String getMusicGenre() {
+		return musicGenre;
+	}
 
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
+	public void setMusicGenre(String musicGenre) {
+		this.musicGenre = musicGenre;
+	}
 
+	public String getContact() {
+		return contact;
+	}
 
-    public List<Musician> getFavorites() {
-        return favorites;
-    }
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
 
-    public void setFavorites(List<Musician> favorites) {
-        this.favorites = favorites;
-    }
+	public List<Musician> getFavorites() {
+		return favorites;
+	}
+
+	public void setFavorites(List<Musician> favorites) {
+		this.favorites = favorites;
+	}
+
+	public Login getLogin() {
+		return login;
+	}
+
+	public void setLogin(Login login) {
+		this.login = login;
+	}
+
+	@Override
+	public String toString() {
+		return "Band [id=" + id + ", name=" + name + ", city=" + city + ", state=" + state + ", musicGenre=" + musicGenre + ", contact=" + contact + ", login="
+				+ login + ", favorites=" + favorites + "]";
+	}
+
 }
