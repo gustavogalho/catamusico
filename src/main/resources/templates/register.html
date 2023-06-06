@@ -24,7 +24,7 @@
 	<div class="main">
 		<div class="col-md-6 col-sm-12">
 			<div class="register-form">
-				<form id="form-login" method="post" th:object="${user}" th:action="@{/save}">
+				<form id="form-login" method="post" th:object="${user}" th:action="@{/save}" enctype="multipart/form-data">
 
 					<div class="form-group">
 						<label>Nome</label> <input th:field="*{name}" id="name" name="name" type="text"
@@ -94,9 +94,12 @@
 						<textarea th:field="*{experiences}" class="form-control" id="experiences" rows="3"></textarea>
 					</div>
 					<div id="media-div" class="form-group">
-						<label for="media">Midia</label> <input type="file" class="form-control-file" id="media"> <small
+						<label for="media">Midia</label> 
+						<input type="file" multiple class="form-control-file" id="media" th:field="*{files}" accept="image/*,video/*"> 
+						<small
 							id="mediaHelpText" class="form-text text-muted">
-							Insira aqui arquivos para seu portfólio musical </small>
+							Insira aqui arquivos para seu portfólio musical. O primeiro arquivo de imagem será sua foto de perfil.
+						</small>
 					</div>
 					<button type="submit" class="btn btn-secondary">Cadastre-se</button>
 				</form>

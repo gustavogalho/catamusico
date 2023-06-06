@@ -77,6 +77,10 @@
 						<a href="/" class="link-dark">
 							<div class="member">
 								<img src="assets/img/foto-perfil.png" alt="">
+								    <!-- <img th:if="${file.contentType.startsWith('image/')}" th:src="@{'/file/content/' + ${file.id}}"/>
+								    <pre th:unless="${file.contentType.startsWith('image/')}">
+								        <span th:text="${file.content}"></span>
+								    </pre> -->
 								<h4 th:text="${musician.name}"></h4>
 								<span th:text="${musician.instrument}"></span>
 							</div>
