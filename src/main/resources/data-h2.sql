@@ -9,7 +9,7 @@
 -- MUSICIAN
 INSERT INTO musician (id, city, contact, experience_level, experiences, instrument, music_genre, name, state)
 VALUES
-(1001, 'Nova Iorque', 'john@example.com', 'Intermediário', 'Tocou em uma banda local por 3 anos', 'Guitarra', 'Rock', 'John Smith', 'Nova York'),
+(1001, 'Nova Iorque', 'john@example.com', 'Intermediário', 'Tocou em uma banda local por 3 anos', 'Guitarra', 'Rock', 'John Smith', 'Acre'),
 (1002, 'Los Angeles', 'sarah@example.com', 'Avançado', 'Fez turnês com um artista famoso de pop', 'Piano', 'Pop', 'Sarah Johnson', 'Califórnia'),
 (1003, 'Londres', 'mike@example.com', 'Iniciante', 'Apresentou em pequenos locais locais', 'Bateria', 'Indie', 'Mike Anderson', 'Inglaterra'),
 (1004, 'Berlim', 'anna@example.com', 'Intermediário', 'Gravou em estúdio para um álbum de jazz', 'Saxofone', 'Jazz', 'Anna Müller', 'Alemanha'),
@@ -18,7 +18,7 @@ VALUES
 (1007, 'Sydney', 'liam@example.com', 'Iniciante', 'Apresentou em bares e pubs locais', 'Vocal', 'Pop/Rock', 'Liam Evans', 'Austrália'),
 (1008, 'Toronto', 'emily@example.com', 'Avançado', 'Fez turnês com uma banda country', 'Banjo', 'Country', 'Emily Thompson', 'Canadá'),
 (1009, 'Moscou', 'vladimir@example.com', 'Intermediário', 'Tocou em uma orquestra sinfônica', 'Violoncelo', 'Clássico', 'Vladimir Petrov', 'Rússia'),
-(1010, 'São Paulo', 'maria@example.com', 'Iniciante', 'Participou de apresentações de talentos escolares', 'Flauta', 'Pop', 'Maria Silva', 'Brasil');
+(1010, 'São Paulo', 'maria@example.com', 'Iniciante', 'Participou de apresentações de talentos escolares', 'Flauta', 'Pop', 'Maria Silva', 'São Paulo');
 
 --BAND
 INSERT INTO band (id, city, contact, music_genre, name, state)

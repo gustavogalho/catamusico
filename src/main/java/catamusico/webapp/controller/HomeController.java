@@ -1,13 +1,22 @@
 package catamusico.webapp.controller;
 
+import java.util.List;
+
+import javax.naming.directory.SearchControls;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import catamusico.webapp.bean.RegisterBean;
+import catamusico.webapp.bean.SearchBean;
 import catamusico.webapp.domain.Band;
 import catamusico.webapp.domain.Login;
 import catamusico.webapp.domain.Musician;
@@ -26,6 +35,23 @@ public class HomeController {
 
 	@Autowired
 	private LoginService loginService;
+
+	@GetMapping("/search")
+	public ModelAndView search() {
+		ModelAndView mav = new ModelAndView("/search");
+		mav.addObject("search", new SearchBean());
+		return mav;
+	}
+
+	@PostMapping("/search")
+	public ModelAndView postSearch(SearchBean searchBean) {
+	System.out.println("Search Bean " + searchBean.toString());
+	List<Musician> musicians = musicianService.queryMusician(searchBean);
+	ModelAndView mav = new ModelAndView("/search");
+	mav.addObject("search", searchBean);
+	mav.addObject("musicians", musicians);
+	return mav;
+	}
 
 	@GetMapping("/register")
 	public ModelAndView register() {
@@ -53,7 +79,6 @@ public class HomeController {
 
 	@PostMapping("/login")
 	public ModelAndView postLogin(Model model) {
-		// loginServive.login();
 		return greetings(model);
 	}
 
@@ -61,11 +86,6 @@ public class HomeController {
 	public ModelAndView greetings(Model model) {
 		model.addAttribute("musicians", musicianService.getTop6Latest());
 		return new ModelAndView("/index");
-	}
-
-	@GetMapping("/search")
-	public ModelAndView search() {
-		return new ModelAndView("/search");
 	}
 
 	@GetMapping("/favorites")
@@ -82,5 +102,4 @@ public class HomeController {
 	public ModelAndView notifications() {
 		return new ModelAndView("/notifications");
 	}
-
 }
