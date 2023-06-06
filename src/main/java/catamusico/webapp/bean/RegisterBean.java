@@ -1,5 +1,7 @@
 package catamusico.webapp.bean;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class RegisterBean {
 
 	private String name;
@@ -12,6 +14,7 @@ public class RegisterBean {
 	private String experienceLevel;
 	private String email;
 	private String password;
+	private MultipartFile[] files;
 
 	public RegisterBean() {
 	}
@@ -94,6 +97,14 @@ public class RegisterBean {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public MultipartFile[] getFiles() {
+		return files;
+	}
+
+	public void setFiles(MultipartFile[] files) {
+		this.files = files;
 	}
 
 	@Override

@@ -1,12 +1,11 @@
 package catamusico.webapp.domain;
 
-import org.springframework.util.Base64Utils;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.Date;
+
+import org.springframework.util.Base64Utils;
 
 @Entity
 public class File {
@@ -14,12 +13,10 @@ public class File {
 	@Id
 	@GeneratedValue
 	private Long id;
-	private String description;
 	private String filename;
 	@Column(length = 2147483647)
 	private byte[] content;
 	private String contentType;
-	private Date createdOn;
 
 	public File() {
 		// TODO Auto-generated constructor stub
@@ -31,14 +28,6 @@ public class File {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public String getFilename() {
@@ -63,14 +52,6 @@ public class File {
 
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
-	}
-
-	public Date getCreatedOn() {
-		return createdOn;
-	}
-
-	public void setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
 	}
 
 	public String getPictureBase64() {

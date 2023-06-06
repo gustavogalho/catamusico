@@ -1,8 +1,11 @@
 package catamusico.webapp.domain;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import catamusico.webapp.bean.RegisterBean;
@@ -22,8 +25,8 @@ public class Musician {
 	private String instrument;
 	private String experiences;
 	private String experienceLevel;
-	// @OneToMany
-	// private List<File> media;
+	@OneToMany
+	private List<File> media;
 	@OneToOne
 	private Login login;
 
@@ -31,7 +34,7 @@ public class Musician {
 
 	}
 
-	public Musician(RegisterBean registerBean, Login login) {
+	public Musician(RegisterBean registerBean, Login login, List<File> fileList) {
 		this.name = registerBean.getName();
 		this.city = registerBean.getCity();
 		this.state = registerBean.getState().split("-")[1];
@@ -41,6 +44,7 @@ public class Musician {
 		this.experiences = registerBean.getExperiences();
 		this.experienceLevel = registerBean.getExperienceLevel();
 		this.login = login;
+		this.media = fileList;
 	}
 
 	public Musician(String name, String city, String state, String musicGenre, String contact, String instrument, String experiences, String experienceLevel) {
@@ -126,13 +130,13 @@ public class Musician {
 		this.experienceLevel = experienceLevel;
 	}
 
-	// public List<File> getMedia() {
-	// return media;
-	// }
+	public List<File> getMedia() {
+		return media;
+	}
 
-	// public void setMedia(List<File> media) {
-	// this.media = media;
-	// }
+	public void setMedia(List<File> media) {
+		this.media = media;
+	}
 
 	public Login getLogin() {
 		return login;
