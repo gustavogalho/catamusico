@@ -3,32 +3,32 @@
 
 
 <head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>CataMusico - Inicio</title>
-<meta content="" name="description">
-<meta content="" name="keywords">
+	<title>CataMusico - Inicio</title>
+	<meta content="" name="description">
+	<meta content="" name="keywords">
 
-<!-- Favicons -->
-<link href="/assets/img/icon.png" rel="icon">
+	<!-- Favicons -->
+	<link href="/assets/img/icon.png" rel="icon">
 
-<!-- Google Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-	rel="stylesheet">
+	<!-- Google Fonts -->
+	<link
+		href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+		rel="stylesheet">
 
-<!-- Vendor CSS Files -->
-<link href="/assets/vendor/aos/aos.css" rel="stylesheet">
-<link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-<link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-<link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-<link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-<link href="/css/style.css" rel="stylesheet">
+	<!-- Vendor CSS Files -->
+	<link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+	<link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+	<link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+	<link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+	<link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+	<link href="/css/style.css" rel="stylesheet">
 
-<!-- Template Main CSS File -->
-<link href="/assets/css/style.css" rel="stylesheet">
+	<!-- Template Main CSS File -->
+	<link href="/assets/css/style.css" rel="stylesheet">
 
 </head>
 
@@ -52,11 +52,20 @@
 			</div>
 			<nav id="navbar" class="nav-menu navbar">
 				<ul>
-					<li><a href="/home" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Inicio</span></a></li>
-					<li><a href="/search" class="nav-link scrollto"><i class="bx bx-search"></i> <span>Buscar</span></a></li>
-					<li><a href="/profile" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Perfil</span></a></li>
-					<li><a href="/favorites" class="nav-link scrollto"><i class="bx bx-heart"></i> <span>Favoritos</span></a></li>
-					<li><a href="/notifications" class="nav-link scrollto"><i class="bx bx-bell"></i> <span>Notificações</span></a></li>
+					<li><a href="/home" class="nav-link scrollto active"><i class="bx bx-home"></i>
+							<span>Inicio</span></a></li>
+					<li th:if="${isMusician != true}"><a href="/search" class="nav-link scrollto"><i
+								class="bx bx-search"></i> <span>Buscar</span></a>
+					</li>
+					<li><a href="/profile" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Perfil</span></a>
+					</li>
+					<li th:if="${isMusician != true}"><a href="/favorites" class="nav-link scrollto"><i
+								class="bx bx-heart"></i>
+							<span>Favoritos</span></a></li>
+					<li><a href="/notifications" class="nav-link scrollto"><i class="bx bx-bell"></i>
+							<span>Notificações</span></a></li>
+					<li><a href="/logout" class="nav-link scrollto"><i class="bi bi-box-arrow-left"></i>
+							<span>Log Out</span></a></li>
 				</ul>
 			</nav>
 			<!-- .nav-menu -->
@@ -71,20 +80,28 @@
 			<div class="container">
 				<div class="section-title">
 					<h2>Novos no CataMúsico</h2>
+
 				</div>
 				<div class="row">
 					<div th:each="musician: ${musicians}" class="col-lg-4 col-md-6 mb-4">
-						<a href="/" class="link-dark">
-							<div class="member">
-								<img src="assets/img/foto-perfil.png" alt="">
-								    <!-- <img th:if="${file.contentType.startsWith('image/')}" th:src="@{'/file/content/' + ${file.id}}"/>
-								    <pre th:unless="${file.contentType.startsWith('image/')}">
-								        <span th:text="${file.content}"></span>
-								    </pre> -->
-								<h4 th:text="${musician.name}"></h4>
-								<span th:text="${musician.instrument}"></span>
+						<div class="member">
+							<a th:href="@{'/viewProfile/' + ${musician.id}}">
+								<img th:if="${musician.media[0].contentType.startsWith('image/')}"
+									th:src="@{'/file/content/' + ${musician.media[0].getId()}}" />
+							</a>
+							<pre th:unless="${musician.media[0].contentType.startsWith('image/')}">
+								<span th:text="${file.content}"></span>
+							</pre>
+							<h4 th:text="${musician.name}"></h4>
+							<span th:text="${musician.instrument}"></span>
+							<div class="d-flex flex-row-reverse">
+								<form th:action="@{'/addFavorites/' + ${musician.id}}" method="post">
+									<button type="submit" class="btn btn-outline-danger">
+										<i class="bx bx-heart"></i>
+									</button>
+								</form>
 							</div>
-						</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -99,7 +116,8 @@
 	<footer id="footer"> </footer>
 	<!-- End  Footer -->
 
-	<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+	<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+			class="bi bi-arrow-up-short"></i></a>
 
 	<!-- Vendor JS Files -->
 	<script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>

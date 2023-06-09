@@ -41,3 +41,6 @@ VALUES(1001,1001);
 --NOTIFICATION
 INSERT INTO notification (id, message, read, band_id, musician_id)
 VALUES(1001, 'abc', false, 1001, 1001);
+
+INSERT INTO musician_media (musician_id, media_id)
+VALUES(1001, 1),(1002, 1),(1003, 1),(1004, 1),(1005, 1),(1006, 1),(1007, 1),(1008, 1),(1009, 1),(1010, 1);

@@ -5,7 +5,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import catamusico.webapp.domain.Band;
 import catamusico.webapp.domain.Login;
+import catamusico.webapp.domain.Musician;
 import catamusico.webapp.repository.LoginRepository;
 
 @Service
@@ -13,6 +15,8 @@ public class LoginService {
 
 	@Autowired
 	private LoginRepository loginRepository;
+	@Autowired
+	private MusicianService musicianService;
 
 	public Login login(String email, String password) {
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -30,5 +34,18 @@ public class LoginService {
 		loginToSave.setPassword(hashedPassword);
 		loginToSave.setEmail(login.getEmail());
 		return loginRepository.save(loginToSave);
+	}
+
+	public boolean isMusician(String email) {
+		Login login = loginRepository.findByEmail(email).orElse(null);
+		if (login != null) {
+			Musician music = musicianService.findByLogin(login.getId());
+			return music != null;
+		}
+		return false;
+	}
+
+	public Login findByEmail(String email){
+		return loginRepository.findByEmail(email).orElse(null);
 	}
 }

@@ -22,4 +22,6 @@ public interface MusicianRepository extends JpaRepository<Musician, Long>
             "AND (:state = '' OR e.state = :state) " +
             "AND (:city = '' OR e.city = :city)")
 	List<Musician> findByQuery(@Param("instrument")String instrument, @Param("experienceLevel")String experienceLevel, @Param("state")String state, @Param("city")String city);
+
+	Musician findByLoginId(Long loginId);
 }

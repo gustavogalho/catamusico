@@ -24,19 +24,28 @@ public class MusicianService {
 		return musicianRepository.findTop6ByOrderByIdDesc();
 	}
 
+	public Musician getOne(Long id) {
+		return musicianRepository.getOne(id);
+	}
+
 	public Musician createMusician(Musician musician) {
 		return musicianRepository.save(musician);
 	}
 
 	public List<Musician> queryMusician(SearchBean searchBean) {
-		if (!searchBean.getState().isEmpty()) 
-		{
+		if (!searchBean.getState().isEmpty()) {
 			searchBean.setState(searchBean.getState().split("-")[1]);
 			// System.out.println(musicianRepository.findAllByState(searchBean.getState()));
 		}
 		System.out.println(searchBean.toString());
-		System.out.println(musicianRepository.findByQuery(searchBean.getInstrument(), searchBean.getExperienceLevel(), searchBean.getState(), searchBean.getCity()));
-		return musicianRepository.findByQuery(searchBean.getInstrument(), searchBean.getExperienceLevel(), searchBean.getState(), searchBean.getCity());
+		System.out.println(musicianRepository.findByQuery(searchBean.getInstrument(), searchBean.getExperienceLevel(),
+				searchBean.getState(), searchBean.getCity()));
+		return musicianRepository.findByQuery(searchBean.getInstrument(), searchBean.getExperienceLevel(),
+				searchBean.getState(), searchBean.getCity());
+	}
+
+	public Musician findByLogin(Long loginId) {
+		return musicianRepository.findByLoginId(loginId);
 	}
 
 }

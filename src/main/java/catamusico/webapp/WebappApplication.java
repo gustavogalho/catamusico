@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
 
 
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
+@SpringBootApplication //(exclude = {SecurityAutoConfiguration.class })
 public class WebappApplication {
 
 	public static void main(String[] args) {

@@ -3,6 +3,7 @@ package catamusico.webapp.controller;
 import java.util.List;
 
 import javax.naming.directory.SearchControls;
+import javax.websocket.server.PathParam;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 import catamusico.webapp.bean.RegisterBean;
 import catamusico.webapp.bean.SearchBean;
 import catamusico.webapp.domain.Band;
+import catamusico.webapp.domain.CustomUserDetails;
 import catamusico.webapp.domain.File;
 import catamusico.webapp.domain.Login;
 import catamusico.webapp.domain.Musician;
@@ -37,6 +40,7 @@ import catamusico.webapp.service.LoginService;
 import catamusico.webapp.service.MusicianService;
 
 @Controller
+@RequestMapping("/")
 public class HomeController {
 
 	@Autowired
@@ -48,24 +52,26 @@ public class HomeController {
 	@Autowired
 	private LoginService loginService;
 
+	@Autowired
+	private FileService fileService;
+
 	@GetMapping("/search")
-	public ModelAndView search() {
+	public ModelAndView search(Model model, @AuthenticationPrincipal CustomUserDetails activeUser) {
 		ModelAndView mav = new ModelAndView("/search");
+		model.addAttribute("isMusician", loginService.isMusician(activeUser.getUsername()));
 		mav.addObject("search", new SearchBean());
 		return mav;
 	}
 
 	@PostMapping("/search")
 	public ModelAndView postSearch(SearchBean searchBean) {
-	System.out.println("Search Bean " + searchBean.toString());
-	List<Musician> musicians = musicianService.queryMusician(searchBean);
-	ModelAndView mav = new ModelAndView("/search");
-	mav.addObject("search", searchBean);
-	mav.addObject("musicians", musicians);
-	return mav;
+		System.out.println("Search Bean " + searchBean.toString());
+		List<Musician> musicians = musicianService.queryMusician(searchBean);
+		ModelAndView mav = new ModelAndView("/search");
+		mav.addObject("search", searchBean);
+		mav.addObject("musicians", musicians);
+		return mav;
 	}
-	@Autowired
-	private FileService fileService;
 
 	@GetMapping("/register")
 	public ModelAndView register() {
@@ -107,7 +113,8 @@ public class HomeController {
 		File file = fileService.getById(fileId);
 		ByteArrayResource resource = new ByteArrayResource(file.getContent());
 
-		return ResponseEntity.ok().contentLength(file.getContent().length).contentType(MediaType.parseMediaType(file.getContentType())).body(resource);
+		return ResponseEntity.ok().contentLength(file.getContent().length)
+				.contentType(MediaType.parseMediaType(file.getContentType())).body(resource);
 	}
 
 	@GetMapping("/login")
@@ -115,30 +122,64 @@ public class HomeController {
 		return new ModelAndView("/auth/login");
 	}
 
-	@PostMapping("/login")
-	public ModelAndView postLogin(Model model) {
-		return greetings(model);
+	@GetMapping("/")
+	public String redirect() {
+		return "redirect:/home";
 	}
 
 	@GetMapping("/home")
-	public ModelAndView greetings(Model model) {
+	public ModelAndView greetings(Model model, @AuthenticationPrincipal CustomUserDetails activeUser) {
 		model.addAttribute("musicians", musicianService.getTop6Latest());
-		// model.addAttribute("file", fileService.findAll().get(0));
+		model.addAttribute("isMusician", loginService.isMusician(activeUser.getUsername()));
 		return new ModelAndView("/index");
 	}
 
 	@GetMapping("/favorites")
-	public ModelAndView favorites() {
+	public ModelAndView favorites(Model model, @AuthenticationPrincipal CustomUserDetails activeUser) {
+		model.addAttribute("favorites", bandService.getOne(1001L).getFavorites());
+		model.addAttribute("isMusician", loginService.isMusician(activeUser.getUsername()));
 		return new ModelAndView("/favorites");
 	}
 
+	@GetMapping("/notifications")
+	public ModelAndView notifications(Model model, @AuthenticationPrincipal CustomUserDetails activeUser) {
+		model.addAttribute("isMusician", loginService.isMusician(activeUser.getUsername()));
+		return new ModelAndView("/notifications");
+	}
+
+	@PostMapping("/addFavorites/{musicianId}")
+	public String addFavorites(@PathVariable("musicianId") Long musicianId) {
+		System.out.println(musicianId);
+		bandService.addMusician(1001L, musicianId);
+		return "redirect:/favorites";
+	}
+
 	@GetMapping("/profile")
-	public ModelAndView profile() {
+	public ModelAndView editUser(Model model, @AuthenticationPrincipal CustomUserDetails activeUser) {
+		boolean isMusician = loginService.isMusician(activeUser.getUsername());
+		model.addAttribute("isMusician", isMusician);
+		Login login = loginService.findByEmail(activeUser.getUsername());
+
+		if (isMusician) {
+			Musician musician = musicianService.findByLogin(login.getId());
+			model.addAttribute("musician", musician);
+
+		} else {
+			Band band = bandService.findByLoginId(login.getId());
+			model.addAttribute("band", band);
+		}
+
 		return new ModelAndView("/profile");
 	}
 
-	@GetMapping("/notifications")
-	public ModelAndView notifications() {
-		return new ModelAndView("/notifications");
+	@GetMapping("/viewProfile/{id}")
+	public ModelAndView viewProfile(@PathVariable("id") Long id, Model model, @AuthenticationPrincipal CustomUserDetails activeUser){
+		boolean isMusician = loginService.isMusician(activeUser.getUsername());
+		Musician musician = musicianService.getOne(id);
+
+		model.addAttribute("isMusician", isMusician);
+		model.addAttribute("musician", musician);
+		model.addAttribute("view", true);
+		return new ModelAndView("/profile");
 	}
 }
