@@ -1,16 +1,16 @@
 --AUTHENTICATION
---INSERT into login(id, email, password) VALUES
---(1001, 'teste@email.com', '$2a$12$LH5cu.KpBlN66i/zAfb2LOFXnAxM5H0CzWutY3ORnZZwu/Ad2Gc3i'),
---(1002, 'banda@email.com', '$2a$12$gCU43oUrg4PoJd3IbEPmeOeAvWYMDLw3xiCb5asAxFzOTG2opJgbS');
+INSERT into login(id, email, password) VALUES
+(1001, 'musico@email.com', '$2a$12$jA3gBREfCkr9FSpW5fSIq.5DWN1dssAPaZyhKP7NmUGTqqIOYUrK6'),
+(1002, 'banda@email.com', '$2a$12$gCU43oUrg4PoJd3IbEPmeOeAvWYMDLw3xiCb5asAxFzOTG2opJgbS');
 
 -- USER_ROLES
 --insert into login_roles (login_id, roles_id) values
 --(1, 1),
 
 -- MUSICIAN
---INSERT INTO musician (id, city, contact, experience_level, experiences, instrument, music_genre, name, state, login_id)
---VALUES
---(1001, 'Nova Iorque', 'john@example.com', 'Intermediário', 'Tocou em uma banda local por 3 anos', 'Guitarra', 'Rock', 'John Smith', 'Acre', 1001);
+INSERT INTO musician (id, city, contact, experience_level, experiences, instrument, music_genre, name, state, login_id)
+VALUES
+(1001, 'Acrelandia', 'joana@example.com', 'Intermediário', 'Tocou em uma banda local por 3 anos', 'Guitarra', 'Rock', 'Joana Smith', 'Acre', 1001);
 -- (1002, 'Los Angeles', 'sarah@example.com', 'Avançado', 'Fez turnês com um artista famoso de pop', 'Piano', 'Pop', 'Sarah Johnson', 'Califórnia'),
 -- (1003, 'Londres', 'mike@example.com', 'Iniciante', 'Apresentou em pequenos locais locais', 'Bateria', 'Indie', 'Mike Anderson', 'Inglaterra'),
 -- (1004, 'Berlim', 'anna@example.com', 'Intermediário', 'Gravou em estúdio para um álbum de jazz', 'Saxofone', 'Jazz', 'Anna Müller', 'Alemanha'),
@@ -22,9 +22,9 @@
 -- (1010, 'São Paulo', 'maria@example.com', 'Iniciante', 'Participou de apresentações de talentos escolares', 'Flauta', 'Pop', 'Maria Silva', 'São Paulo');
 
 --BAND
---INSERT INTO band (id, city, contact, music_genre, name, state, login_id)
---VALUES
---(1001, 'Nova Iorque', 'info@banda1.com', 'Rock', 'Banda do Rock', 'Nova York', 1002);
+INSERT INTO band (id, city, contact, music_genre, name, state, login_id)
+VALUES
+(1001, 'Nova Iorque', 'info@banda1.com', 'Rock', 'Banda do Rock', 'Nova York', 1002);
 -- (1002, 'Los Angeles', 'contato@banda2.com', 'Pop', 'Banda Popstar', 'Califórnia'),
 -- (1003, 'Londres', 'banda3@gmail.com', 'Indie', 'Indie Rockers', 'Inglaterra'),
 -- (1004, 'Berlim', 'banda4@gmail.com', 'Eletrônica', 'Electro Beats', 'Alemanha'),
@@ -43,12 +43,13 @@
 --INSERT INTO notification (id, message, read, band_id, musician_id)
 --VALUES(1001, 'abc', false, 1001, 1001);
 
---insert into file(id, content,content_type) values
---(1001,  FILE_READ('classpath:/static/assets/img/testimonials/testimonials-1.jpg'), 'image/jpg'),
---(1002,  FILE_READ('classpath:/static/assets/img/testimonials/testimonials-2.jpg'), 'image/jpg'),;
+--FILES 
+insert into file(id,content,content_type) values
+(1001,  FILE_READ('classpath:/static/assets/img/testimonials/testimonials-1.jpg'), 'image/jpg'),
+(1002,  FILE_READ('classpath:/static/assets/img/testimonials/testimonials-2.jpg'), 'image/jpg'),;
 
---INSERT INTO musician_media (musician_id, media_id)
---VALUES(1001, 1001);
+INSERT INTO musician_media (musician_id, media_id)
+VALUES(1001, 1001);
 
---INSERT INTO band_media (band_id, media_id)
---VALUES(1001, 1002);
+INSERT INTO band_media (band_id, media_id)
+VALUES(1001, 1002);
