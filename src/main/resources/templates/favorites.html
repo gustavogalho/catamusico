@@ -44,10 +44,11 @@
 				<img src="/assets/img/catamusico-logo.png" alt="" style="max-height: 100%; max-width: 100%;">
 
 			</div>
-			<div class="profile">
-				<img src="/assets/img/profile-img.jpg" alt="" class="img-fluid rounded-circle">
+			<div th:if="${isMusician == false}" class="profile">
+				<img th:if="${band.media[0].contentType.startsWith('image/')}"
+					th:src="@{'/file/content/' + ${band.media[0].getId()}}" alt="" class="img-fluid rounded-circle">
 				<h1 class="text-light">
-					<a href="index.html">Gus Galho</a>
+					<p th:text="${band.name}"></p>
 				</h1>
 			</div>
 			<nav id="navbar" class="nav-menu navbar">
@@ -83,17 +84,14 @@
 				</div>
 				<div class="row">
 					<div th:each="favorite: ${favorites}" class="col-lg-4 col-md-6 mb-4">
-						<a href="/" class="link-dark">
 							<div class="member">
+								<a th:href="@{'/viewProfile/' + ${favorite.id}}">
 								<img th:if="${favorite.media[0].contentType.startsWith('image/')}"
-									th:src="@{'/file/content/' + ${favorite.media[0].getId()}}" />
-								<pre th:unless="${favorite.media[0].contentType.startsWith('image/')}">
-								        <span th:text="${file.content}"></span>
-								    </pre>
+									th:src="@{'/file/content/' + ${favorite.media[0].getId()}}" alt=""/>
+								</a>
 								<h4 th:text="${favorite.name}"></h4>
 								<span th:text="${favorite.instrument}"></span>
 							</div>
-						</a>
 					</div>
 				</div>
 			</div>

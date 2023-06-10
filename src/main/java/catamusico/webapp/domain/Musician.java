@@ -1,12 +1,16 @@
 package catamusico.webapp.domain;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.ManyToAny;
 
 import catamusico.webapp.bean.RegisterBean;
 
@@ -25,6 +29,8 @@ public class Musician {
 	private String instrument;
 	private String experiences;
 	private String experienceLevel;
+	@ManyToMany
+	private List<Band> bandFavorites;
 	@OneToMany
 	private List<File> media;
 	@OneToOne
@@ -47,7 +53,8 @@ public class Musician {
 		this.media = fileList;
 	}
 
-	public Musician(String name, String city, String state, String musicGenre, String contact, String instrument, String experiences, String experienceLevel) {
+	public Musician(String name, String city, String state, String musicGenre, String contact, String instrument,
+			String experiences, String experienceLevel) {
 		this.name = name;
 		this.city = city;
 		this.state = state;
@@ -148,8 +155,20 @@ public class Musician {
 
 	@Override
 	public String toString() {
-		return "Musician [id=" + id + ", name=" + name + ", city=" + city + ", state=" + state + ", musicGenre=" + musicGenre + ", contact=" + contact
-				+ ", instrument=" + instrument + ", experiences=" + experiences + ", experienceLevel=" + experienceLevel + ", login=" + login + "]";
+		return "Musician [id=" + id + ", name=" + name + ", city=" + city + ", state=" + state + ", musicGenre="
+				+ musicGenre + ", contact=" + contact
+				+ ", instrument=" + instrument + ", experiences=" + experiences + ", experienceLevel=" + experienceLevel
+				+ ", login=" + login + "]";
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Musician musician = (Musician) o;
+		return Objects.equals(id, musician.id);
 	}
 
 }

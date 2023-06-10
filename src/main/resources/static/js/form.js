@@ -21,13 +21,9 @@ window.addEventListener('load', function() {
         if (profile == 'band') {
             $("#instrument-div").hide();
             $("#experienceLevel-div").hide();
-            $("#experiences-div").hide();
-            $("#media-div").hide();
         } else {
             $("#instrument-div").show();
-            $("#experienceLevel-div").show();
-            $("#experiences-div").show();
-            $("#media-div").show();
+            $("#experienceLevel-div").show();;
         }
     };
 

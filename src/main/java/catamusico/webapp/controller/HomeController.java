@@ -58,7 +58,7 @@ public class HomeController {
 	@GetMapping("/search")
 	public ModelAndView search(Model model, @AuthenticationPrincipal CustomUserDetails activeUser) {
 		ModelAndView mav = new ModelAndView("/search");
-		model.addAttribute("isMusician", loginService.isMusician(activeUser.getUsername()));
+		model = userIdentification(model, activeUser);
 		mav.addObject("search", new SearchBean());
 		return mav;
 	}
@@ -103,7 +103,7 @@ public class HomeController {
 		if (!registerBean.getInstrument().isEmpty()) {
 			musicianService.createMusician(new Musician(registerBean, login, fileSavedList));
 		} else {
-			bandService.createBand(new Band(registerBean, login));
+			bandService.createBand(new Band(registerBean, login, fileSavedList));
 		}
 		return "redirect:/home";
 	}
@@ -129,28 +129,38 @@ public class HomeController {
 
 	@GetMapping("/home")
 	public ModelAndView greetings(Model model, @AuthenticationPrincipal CustomUserDetails activeUser) {
+		model = userIdentification(model, activeUser);
 		model.addAttribute("musicians", musicianService.getTop6Latest());
-		model.addAttribute("isMusician", loginService.isMusician(activeUser.getUsername()));
+		model.addAttribute("bands", bandService.findAll());
+
 		return new ModelAndView("/index");
 	}
 
 	@GetMapping("/favorites")
 	public ModelAndView favorites(Model model, @AuthenticationPrincipal CustomUserDetails activeUser) {
-		model.addAttribute("favorites", bandService.getOne(1001L).getFavorites());
-		model.addAttribute("isMusician", loginService.isMusician(activeUser.getUsername()));
+		model = userIdentification(model, activeUser);
+		Login login = loginService.findByEmail(activeUser.getUsername());
+
+		Band band = bandService.findByLoginId(login.getId());
+		model.addAttribute("band", band);
+
+		model.addAttribute("favorites", band.getFavorites());
 		return new ModelAndView("/favorites");
 	}
 
 	@GetMapping("/notifications")
 	public ModelAndView notifications(Model model, @AuthenticationPrincipal CustomUserDetails activeUser) {
-		model.addAttribute("isMusician", loginService.isMusician(activeUser.getUsername()));
+		model = userIdentification(model, activeUser);
 		return new ModelAndView("/notifications");
 	}
 
 	@PostMapping("/addFavorites/{musicianId}")
-	public String addFavorites(@PathVariable("musicianId") Long musicianId) {
-		System.out.println(musicianId);
-		bandService.addMusician(1001L, musicianId);
+	public String addFavorites(@PathVariable("musicianId") Long musicianId,
+			@AuthenticationPrincipal CustomUserDetails activeUser) {
+		Login login = loginService.findByEmail(activeUser.getUsername());
+
+		Band band = bandService.findByLoginId(login.getId());
+		bandService.addMusician(band.getId(), musicianId);
 		return "redirect:/favorites";
 	}
 
@@ -158,6 +168,8 @@ public class HomeController {
 	public ModelAndView editUser(Model model, @AuthenticationPrincipal CustomUserDetails activeUser) {
 		boolean isMusician = loginService.isMusician(activeUser.getUsername());
 		model.addAttribute("isMusician", isMusician);
+		model.addAttribute("view", false);
+
 		Login login = loginService.findByEmail(activeUser.getUsername());
 
 		if (isMusician) {
@@ -173,13 +185,41 @@ public class HomeController {
 	}
 
 	@GetMapping("/viewProfile/{id}")
-	public ModelAndView viewProfile(@PathVariable("id") Long id, Model model, @AuthenticationPrincipal CustomUserDetails activeUser){
+	public ModelAndView viewProfile(@PathVariable("id") Long id, Model model,
+			@AuthenticationPrincipal CustomUserDetails activeUser) {
 		boolean isMusician = loginService.isMusician(activeUser.getUsername());
-		Musician musician = musicianService.getOne(id);
+		model = userIdentification(model, activeUser);
+		if (!isMusician) {
+			Musician musician = musicianService.getOne(id);
+			model.addAttribute("viewMusician", musician);
+		} else {
+			Band band = bandService.getOne(id);
+			System.out.println(band);
+			model.addAttribute("viewBand", band);
+		}
 
 		model.addAttribute("isMusician", isMusician);
-		model.addAttribute("musician", musician);
+
 		model.addAttribute("view", true);
 		return new ModelAndView("/profile");
+	}
+
+	public Model userIdentification(Model model, @AuthenticationPrincipal CustomUserDetails activeUser) {
+		boolean isMusician = loginService.isMusician(activeUser.getUsername());
+		model.addAttribute("isMusician", isMusician);
+		model.addAttribute("view", false);
+		model.addAttribute("profile", activeUser);
+
+		Login login = loginService.findByEmail(activeUser.getUsername());
+
+		if (isMusician) {
+			Musician musician = musicianService.findByLogin(login.getId());
+			model.addAttribute("musician", musician);
+
+		} else {
+			Band band = bandService.findByLoginId(login.getId());
+			model.addAttribute("band", band);
+		}
+		return model;
 	}
 }

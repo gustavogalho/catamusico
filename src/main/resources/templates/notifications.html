@@ -47,10 +47,20 @@
 				<img src="assets/img/catamusico-logo.png" alt="" style="max-height: 100%; max-width: 100%;">
 
 			</div>
-			<div class="profile">
-				<img src="assets/img/profile-img.jpg" alt="" class="img-fluid rounded-circle">
+			<div th:if="${isMusician == false}" class="profile">
+				<img th:if="${band.media[0].contentType.startsWith('image/')}"
+					th:src="@{'/file/content/' + ${band.media[0].getId()}}" alt=""
+					class="img-fluid rounded-circle">
 				<h1 class="text-light">
-					<a href="index.html">Gus Galho</a>
+					<p th:text="${band.name}"></p>
+				</h1>
+			</div>
+			<div th:if="${isMusician == true}" class="profile">
+				<img th:if="${musician.media[0].contentType.startsWith('image/')}"
+					th:src="@{'/file/content/' + ${musician.media[0].getId()}}" alt=""
+					class="img-fluid rounded-circle">
+				<h1 class="text-light">
+					<p th:text="${musician.name}"></p>
 				</h1>
 			</div>
 			<nav id="navbar" class="nav-menu navbar">

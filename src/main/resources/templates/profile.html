@@ -33,6 +33,8 @@
 	<!-- Template Main CSS File -->
 	<link href="../assets/css/style.css" rel="stylesheet">
 
+	<script type="text/javascript" language="javascript" src="/js/form.js"></script>
+
 </head>
 
 <body>
@@ -47,10 +49,18 @@
 				<img src="../assets/img/catamusico-logo.png" alt="" style="max-height: 100%; max-width: 100%;">
 
 			</div>
-			<div class="profile">
-				<img src="../assets/img/profile-img.jpg" alt="" class="img-fluid rounded-circle">
+			<div th:if="${isMusician == false}" class="profile">
+				<img th:if="${band.media[0].contentType.startsWith('image/')}"
+					th:src="@{'/file/content/' + ${band.media[0].getId()}}" alt="" class="img-fluid rounded-circle">
 				<h1 class="text-light">
-					<a href="index.html">Gus Galho</a>
+					<p th:text="${band.name}"></p>
+				</h1>
+			</div>
+			<div th:if="${isMusician == true}" class="profile">
+				<img th:if="${musician.media[0].contentType.startsWith('image/')}"
+					th:src="@{'/file/content/' + ${musician.media[0].getId()}}" alt="" class="img-fluid rounded-circle">
+				<h1 class="text-light">
+					<p th:text="${musician.name}"></p>
 				</h1>
 			</div>
 			<nav id="navbar" class="nav-menu navbar">
@@ -80,71 +90,189 @@
 		<section id="team" class="team">
 			<div class="container">
 				<div class="section-title">
-					<h2 >Seu Perfil</h2>
+					<h2 th:if="${view == true && isMusician}" th:text="${viewBand.name}"></h2>
+					<h2 th:if="${view == true && !isMusician}" th:text="${viewMusician.name}"></h2>
+					<h2 th:if="${view == false}">Seu Perfil</h2>
 				</div>
 				<div class="col-md-6 col-sm-12">
-					<div class="register-form">
-						<form id="form-login" action="/login" method="post">
+					<div th:if="${view == true && isMusician == false}" class="register-form">
+						<form id="form-login">
 							<div>
-								<img th:if="${musician.media[0].contentType.startsWith('image/')}"
-									th:src="@{'/file/content/' + ${musician.media[0].getId()}}" /> <input type="file"
-									class="form-control-file" id="media">
+								<img th:if="${viewMusician.media[0].contentType.startsWith('image/')}"
+									th:src="@{'/file/content/' + ${viewMusician.media[0].getId()}}" alt="" />
 							</div>
-
+							<br>
 							<div class="form-group">
 								<label>Nome</label> <input id="name" name="name" type="text" class="form-control"
-									placeholder="Nome">
+									th:value="${viewMusician.name}" readonly>
 							</div>
 							<div class="form-group">
-								<label>Estado</label> <select class="form-control" id="state">
-								</select>
+								<label>Estado</label> <input id="state" name="state" type="text" class="form-control"
+									th:value="${viewMusician.state}" readonly>
 							</div>
 							<div class="form-group">
-								<label>Cidade</label> <select class="form-control" id="city">
-								</select>
+								<label>Cidade</label> <input id="name" name="name" type="text" class="form-control"
+									th:value="${viewMusician.city}" readonly>
 							</div>
 							<div class="form-group">
 								<label>Genero Musical</label> <input id="musicGenre" name="musicGenre" type="text"
-									class="form-control" placeholder="Genero Musical">
+									class="form-control" th:value="${viewMusician.musicGenre}" readonly>
 							</div>
 							<div class="form-group">
 								<label>Contato</label> <input id="contact" name="contact" type="text"
-									class="form-control" placeholder="Contato"> <small id="contactHelpText"
-									class="form-text text-muted"> Insira aqui seu telefone, email ou sua rede social
-									para ser contatado </small>
+									class="form-control" th:value="${viewMusician.contact}" readonly>
 							</div>
 
 							<div id="instrument-div" class="form-group">
-								<label>Instrumento</label> <select class="form-control" id="instrument"
-									name="instrument">
-									<option>Baixo</option>
-									<option>Bateria</option>
-									<option>Guitarra</option>
-									<option>Vocal</option>
-								</select>
+								<label>Instrumento</label> <input id="name" name="name" type="text" class="form-control"
+									th:value="${viewMusician.instrument}" readonly>
 							</div>
 							<div id="experienceLevel-div" class="form-group">
-								<label for="experienceLevel">Nível de conhecimento</label> <select class="form-control"
-									id="experienceLevel">
-									<option>Iniciante</option>
-									<option>Intermediário</option>
-									<option>Profissional</option>
-								</select>
+								<label for="experienceLevel">Nível de conhecimento</label> <input id="name" name="name"
+									type="text" class="form-control" th:value="${viewMusician.experienceLevel}"
+									readonly>
 							</div>
 							<div id="experiences-div" class="form-group">
 								<label for="experiences">Experiencias</label>
-								<textarea class="form-control" id="experiences" rows="3"></textarea>
+								<input id="name" name="name" type="text" class="form-control"
+									th:value="${viewMusician.experiences}" readonly>
 							</div>
-							<div id="media-div" class="form-group">
-								<label for="media">Midia</label> <input type="file" class="form-control-file"
-									id="media"> <small id="mediaHelpText" class="form-text text-muted">
-									Insira aqui arquivos para seu portfólio musical </small>
-							</div>
-							<button type="submit" class="btn btn-secondary">Atualizar</button>
+							<br>
+							<button th:if="${!band.favorites.contains(musician)}" type="submit"
+								class="btn btn-secondary">Favoritar</button>
 						</form>
 
 					</div>
+					<div th:if="${view == false && isMusician == false}" class="register-form">
+						<div>
+							<img th:if="${band.media[0].contentType.startsWith('image/')}"
+								th:src="@{'/file/content/' + ${band.media[0].getId()}}" alt="" /> <input type="file"
+								class="form-control-file" id="media">
+						</div>
+						<br>
+						<div class="form-group">
+							<label>Nome</label> <input id="name" name="name" type="text" class="form-control"
+								th:value="${band.name}" readonly>
+						</div>
+						<div class="form-group">
+							<label>Estado</label>
+							<select th:field="${band.state}" class="form-control" id="state" required>
+							</select>
+						</div>
+						<div class="form-group">
+							<label>Cidade</label>
+							<select th:field="${band.city}" class="form-control" id="city" required>
+							</select>
+						</div>
+						<div class="form-group">
+							<label>Genero Musical</label> <input th:field="*{band.musicGenre}" id="musicGenre"
+								name="musicGenre" type="text" class="form-control" placeholder="Genero Musical"
+								required>
+						</div>
+						<div class="form-group">
+							<label>Contato</label> <input th:field="*{band.contact}" id="contact" name="contact"
+								type="text" class="form-control" placeholder="Contato" required>
+							<small id="contactHelpText" class="form-text text-muted"> Insira aqui seu telefone, email ou
+								sua
+								rede social para ser contatado </small>
+						</div>
+						<button type="submit" class="btn btn-secondary">Atualizar</button>
+						</form>
+					</div>
+
+					<div th:if="${view == false && isMusician == true}" class="register-form">
+						<div>
+							<img th:if="${musician.media[0].contentType.startsWith('image/')}"
+								th:src="@{'/file/content/' + ${musician.media[0].getId()}}" alt="" /> <input type="file"
+								class="form-control-file" id="media">
+						</div>
+						<br>
+						<div class="form-group">
+							<label>Nome</label> <input id="name" name="name" type="text" class="form-control"
+								th:value="${musician.name}" readonly>
+						</div>
+						<div class="form-group">
+							<label>Estado</label>
+							<select th:field="${musician.state}" class="form-control" id="state" required>
+							</select>
+						</div>
+						<div class="form-group">
+							<label>Cidade</label>
+							<select th:field="${musician.city}" class="form-control" id="city" required>
+							</select>
+						</div>
+						<div class="form-group">
+							<label>Genero Musical</label> <input th:field="*{musician.musicGenre}" id="musicGenre"
+								name="musicGenre" type="text" class="form-control" placeholder="Genero Musical"
+								required>
+						</div>
+						<div class="form-group">
+							<label>Contato</label> <input th:field="*{musician.contact}" id="contact" name="contact"
+								type="text" class="form-control" placeholder="Contato" required>
+							<small id="contactHelpText" class="form-text text-muted"> Insira aqui seu telefone, email ou
+								sua
+								rede social para ser contatado </small>
+						</div>
+						<div id="instrument-div" class="form-group">
+							<label>Instrumento</label> <select th:field="*{musician.instrument}" class="form-control"
+								id="instrument" name="instrument">
+								<option value="">Instrumento</option>
+								<option value="Baixo">Baixo</option>
+								<option value="Bateria">Bateria</option>
+								<option value="Guitarra">Guitarra</option>
+								<option value="Vocal">Vocal</option>
+							</select>
+						</div>
+						<div id="experienceLevel-div" class="form-group">
+							<label for="experienceLevel">Nível de conhecimento</label>
+							<select th:field="*{musician.experienceLevel}" class="form-control" id="experienceLevel">
+								<option value="">Nível de conhecimento</option>
+								<option value="Iniciante">Iniciante</option>
+								<option value="Intermediário">Intermediário</option>
+								<option value="Profissional">Profissional</option>
+							</select>
+						</div>
+						<br>
+						<button type="submit" class="btn btn-secondary">Atualizar</button>
+						</form>
+					</div>
+					<div th:if="${view == true && isMusician == true}" class="register-form">
+						<form id="form-login">
+							<div>
+								<img th:if="${viewBand.media[0].contentType.startsWith('image/')}"
+									th:src="@{'/file/content/' + ${viewBand.media[0].getId()}}" alt="" />
+							</div>
+							<br>
+							<div class="form-group">
+								<label>Nome</label> <input id="name" name="name" type="text" class="form-control"
+									th:value="${viewBand.name}" readonly>
+							</div>
+							<div class="form-group">
+								<label>Estado</label> <input id="state" name="state" type="text" class="form-control"
+									th:value="${viewBand.state}" readonly>
+							</div>
+							<div class="form-group">
+								<label>Cidade</label> <input id="name" name="name" type="text" class="form-control"
+									th:value="${viewBand.city}" readonly>
+							</div>
+							<div class="form-group">
+								<label>Genero Musical</label> <input id="musicGenre" name="musicGenre" type="text"
+									class="form-control" th:value="${viewBand.musicGenre}" readonly>
+							</div>
+							<div class="form-group">
+								<label>Contato</label> <input id="contact" name="contact" type="text"
+									class="form-control" th:value="${viewBand.contact}" readonly>
+							</div>
+							<div id="experiences-div" class="form-group">
+								<label for="experiences">Experiencias</label>
+								<input id="name" name="name" type="text" class="form-control"
+									th:value="${viewBand.experiences}" readonly>
+							</div>
+						</form>
+					</div>
+
 				</div>
+			</div>
 
 			</div>
 
