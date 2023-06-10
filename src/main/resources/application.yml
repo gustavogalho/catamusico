@@ -10,12 +10,19 @@ spring:
     enabled: true
     path: /db
   jpa:
+    database: mysql
     show-sql: true
     hibernate:
-        ddl-auto: create-drop
+      ddl-auto: create
+      #database-platform: org.hibernate.dialect.MySQLDialect
+      dialect: org.hibernate.dialect.MySQL5Dialect
   datasource:
-    url: jdbc:h2:~/dev;DB_CLOSE_ON_EXIT=FALSE
-    platform: h2
+    driverclassname: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/catamusico?createDatabaseIfNotExist=true
+    username: root
+    password: 
+    #url: jdbc:h2:~/dev;DB_CLOSE_ON_EXIT=FALSE
+    #platform: h2
   servlet:
     multipart:
       max-file-size: 10MB
