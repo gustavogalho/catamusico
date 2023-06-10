@@ -10,6 +10,6 @@ RUN mvn -f /home/app/pom.xml clean package -Dmaven.test.skip=true
 # Package stage
 #
 FROM openjdk:8-jre
-COPY --from=build /home/app/target/catamusico-1.0.0.jar /usr/local/lib/demo.jar
+COPY --from=build /home/app/target/webapp-1.0.0.jar /usr/local/lib/demo.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","/usr/local/lib/demo.jar"]
