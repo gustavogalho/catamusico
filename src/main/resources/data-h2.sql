@@ -43,8 +43,8 @@ INSERT INTO notification (id, message, read, band_id, musician_id)
 VALUES(1001, 'abc', false, 1001, 1001);
 
 insert into file(id, content,content_type) values
-(1001,  FILE_READ('./src/main/resources/static/assets/img/testimonials/testimonials-1.jpg'), 'image/jpg'),
-(1002,  FILE_READ('./src/main/resources/static/assets/img/testimonials/testimonials-2.jpg'), 'image/jpg'),;
+(1001,  FILE_READ('classpath:/src/main/resources/static/assets/img/testimonials/testimonials-1.jpg'), 'image/jpg'),
+(1002,  FILE_READ('classpath:/src/main/resources/static/assets/img/testimonials/testimonials-2.jpg'), 'image/jpg'),;
 
 INSERT INTO musician_media (musician_id, media_id)
 VALUES(1001, 1001);
