@@ -75,7 +75,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.45</version>
+			<version>8.0.28</version>
 			<scope>runtime</scope>
 		</dependency>
 
@@ -160,11 +160,11 @@
 			<artifactId>momentjs</artifactId>
 			<version>2.11.1</version>
 		</dependency>
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>sweetalert2</artifactId>
-            <version>7.0.6</version>
-        </dependency>
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>sweetalert2</artifactId>
+			<version>7.0.6</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
