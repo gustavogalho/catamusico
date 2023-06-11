@@ -18,6 +18,10 @@
 		rel="stylesheet">
 
 	<!-- Vendor CSS Files -->
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css"
+		integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
+
 	<link href="/assets/vendor/aos/aos.css" rel="stylesheet">
 	<link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -44,36 +48,37 @@
 	<header id="header">
 		<div class="d-flex flex-column">
 			<div class="">
-				<img src="assets/img/catamusico-logo.png" alt="" style="max-height: 100%; max-width: 100%;">
+				<img src="/assets/img/catamusico-logo.png" alt="" style="max-height: 100%; max-width: 100%;">
 
 			</div>
 			<div th:if="${isMusician == false}" class="profile">
 				<img th:if="${band.media[0].contentType.startsWith('image/')}"
-					th:src="@{'/file/content/' + ${band.media[0].getId()}}" alt=""
-					class="img-fluid rounded-circle">
+					th:src="@{'/file/content/' + ${band.media[0].getId()}}" alt="" class="img-fluid rounded-circle resize">
 				<h1 class="text-light">
 					<p th:text="${band.name}"></p>
 				</h1>
 			</div>
 			<div th:if="${isMusician == true}" class="profile">
 				<img th:if="${musician.media[0].contentType.startsWith('image/')}"
-					th:src="@{'/file/content/' + ${musician.media[0].getId()}}" alt=""
-					class="img-fluid rounded-circle">
+					th:src="@{'/file/content/' + ${musician.media[0].getId()}}" alt="" class="img-fluid rounded-circle resize">
 				<h1 class="text-light">
 					<p th:text="${musician.name}"></p>
 				</h1>
 			</div>
 			<nav id="navbar" class="nav-menu navbar">
 				<ul>
-					<li><a href="/home" class="nav-link scrollto"><i class="bx bx-home"></i> <span>Inicio</span></a>
-					</li>
+					<li><a href="/home" class="nav-link scrollto"><i class="bx bx-home"></i>
+							<span>Inicio</span></a></li>
 					<li th:if="${isMusician != true}"><a href="/search" class="nav-link scrollto"><i
-								class="bx bx-search"></i> <span>Buscar</span></a></li>
+								class="bx bx-search"></i> <span>Buscar</span></a>
+					</li>
 					<li><a href="/profile" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Perfil</span></a>
 					</li>
 					<li th:if="${isMusician != true}"><a href="/favorites" class="nav-link scrollto"><i
-								class="bx bx-heart"></i> <span>Favoritos</span></a></li>
-					<li><a href="/notifications" class="nav-link scrollto active"><i class="bx bx-bell"></i>
+								class="bx bx-heart"></i>
+							<span>Favoritos</span></a></li>
+					<li th:if="${isMusician == true}"><a href="/notifications" class="nav-link scrollto active"><i
+								class="bx bx-bell"></i>
 							<span>Notificações</span></a></li>
 					<li><a href="/logout" class="nav-link scrollto"><i class="bi bi-box-arrow-left"></i>
 							<span>Log Out</span></a></li>
@@ -87,15 +92,50 @@
 
 	<main id="main">
 
-		<section id="team" class="team">
+		<section class="section-50">
 			<div class="container">
 				<div class="section-title">
 					<h2>Notificações</h2>
 				</div>
-				<div class="row">Sem notificação!</div>
-		</section>
-		<!-- End Team Section -->
+				<div class="row">
+					<div th:each="notification: ${notifications}" class="notification-ui_dd-content">
+						<div th:if="${!notification.read}" class="notification-list notification-list--unread">
+							<div class="notification-list_content">
+								<div >
+									<img th:if="${notification.band.media[0].contentType.startsWith('image/')}"
+										th:src="@{'/file/content/' + ${notification.band.media[0].getId()}}" alt="" class="img-fluid rounded-circle resize"/>
+								</div>
+								<div class="notification-list_detail">
+									<p><b th:text="${notification.band.name}"></b> Favoritou seu perfil</p>
+									<p th:text="${notification.band.experiences}" class="text-muted"></p>
+								</div>
+							</div>
+							<a th:href="@{'/notifications/read/' + ${notification.id}}" class="btn btn-primary btn-lg active" role="button"
+								aria-pressed="true">Ver perfil</a>
+						</div>
+					</div>
+					<div th:each="notification: ${notifications}" class="notification-ui_dd-content">
+						<div th:if="${notification.read}" class="notification-list notification-list">
+							<div class="notification-list_content">
+								<div >
+									<img th:if="${notification.band.media[0].contentType.startsWith('image/')}"
+										th:src="@{'/file/content/' + ${notification.band.media[0].getId()}}" alt="" class="img-fluid rounded-circle resize"/>
+								</div>
+								<div class="notification-list_detail">
+									<p><b th:text="${notification.band.name}"></b> Favoritou seu perfil</p>
+									<p th:text="${notification.band.experiences}" class="text-muted"></p>
+								</div>
+							</div>
+							<a th:href="@{'/notifications/read/' + ${notification.id}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Ver perfil</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+			</div>
 
+			</div>
+		</section>
 
 	</main>
 	<!-- End #main -->

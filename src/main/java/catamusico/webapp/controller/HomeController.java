@@ -34,10 +34,12 @@ import catamusico.webapp.domain.CustomUserDetails;
 import catamusico.webapp.domain.File;
 import catamusico.webapp.domain.Login;
 import catamusico.webapp.domain.Musician;
+import catamusico.webapp.domain.Notification;
 import catamusico.webapp.service.BandService;
 import catamusico.webapp.service.FileService;
 import catamusico.webapp.service.LoginService;
 import catamusico.webapp.service.MusicianService;
+import catamusico.webapp.service.NotificationService;
 
 @Controller
 @RequestMapping("/")
@@ -55,6 +57,9 @@ public class HomeController {
 	@Autowired
 	private FileService fileService;
 
+	@Autowired
+	private NotificationService notificationService;
+
 	@GetMapping("/search")
 	public ModelAndView search(Model model, @AuthenticationPrincipal CustomUserDetails activeUser) {
 		ModelAndView mav = new ModelAndView("/search");
@@ -64,8 +69,8 @@ public class HomeController {
 	}
 
 	@PostMapping("/search")
-	public ModelAndView postSearch(SearchBean searchBean) {
-		System.out.println("Search Bean " + searchBean.toString());
+	public ModelAndView postSearch(Model model, @AuthenticationPrincipal CustomUserDetails activeUser, SearchBean searchBean) {
+		model = userIdentification(model, activeUser);
 		List<Musician> musicians = musicianService.queryMusician(searchBean);
 		ModelAndView mav = new ModelAndView("/search");
 		mav.addObject("search", searchBean);
@@ -151,15 +156,32 @@ public class HomeController {
 	@GetMapping("/notifications")
 	public ModelAndView notifications(Model model, @AuthenticationPrincipal CustomUserDetails activeUser) {
 		model = userIdentification(model, activeUser);
+		Login login = loginService.findByEmail(activeUser.getUsername());
+		Musician musician = musicianService.findByLogin(login.getId());
+		List<Notification> notifications = notificationService.findByMusicianId(musician.getId());
+
+		System.out.println(notifications);
+
+		model.addAttribute("notifications", notifications);
+		model.addAttribute("musician", musician);
 		return new ModelAndView("/notifications");
+	}
+
+	@GetMapping("/notifications/read/{notificationId}")
+	public String readNotification(@PathVariable("notificationId") Long notificationId) {
+		Notification notification = notificationService.setRead(true, notificationId);
+		Long bandId = notification.getBand().getId();
+
+		return "redirect:/viewProfile/" + bandId;
 	}
 
 	@PostMapping("/addFavorites/{musicianId}")
 	public String addFavorites(@PathVariable("musicianId") Long musicianId,
 			@AuthenticationPrincipal CustomUserDetails activeUser) {
 		Login login = loginService.findByEmail(activeUser.getUsername());
-
+		Musician musician = musicianService.getOne(musicianId);
 		Band band = bandService.findByLoginId(login.getId());
+		notificationService.save(band, musician);
 		bandService.addMusician(band.getId(), musicianId);
 		return "redirect:/favorites";
 	}
@@ -194,13 +216,12 @@ public class HomeController {
 			model.addAttribute("viewMusician", musician);
 		} else {
 			Band band = bandService.getOne(id);
-			System.out.println(band);
 			model.addAttribute("viewBand", band);
 		}
 
 		model.addAttribute("isMusician", isMusician);
-
 		model.addAttribute("view", true);
+
 		return new ModelAndView("/profile");
 	}
 
@@ -214,7 +235,9 @@ public class HomeController {
 
 		if (isMusician) {
 			Musician musician = musicianService.findByLogin(login.getId());
+			boolean newNotification = notificationService.newNotification(musician.getId());
 			model.addAttribute("musician", musician);
+			model.addAttribute("newNotification", newNotification);
 
 		} else {
 			Band band = bandService.findByLoginId(login.getId());

@@ -46,7 +46,7 @@
 			</div>
 			<div th:if="${isMusician == false}" class="profile">
 				<img th:if="${band.media[0].contentType.startsWith('image/')}"
-					th:src="@{'/file/content/' + ${band.media[0].getId()}}" alt="" class="img-fluid rounded-circle">
+					th:src="@{'/file/content/' + ${band.media[0].getId()}}" alt="" class="img-fluid rounded-circle resize">
 				<h1 class="text-light">
 					<p th:text="${band.name}"></p>
 				</h1>
@@ -63,7 +63,7 @@
 					<li th:if="${isMusician != true}"><a href="/favorites" class="nav-link scrollto active"><i
 								class="bx bx-heart"></i>
 							<span>Favoritos</span></a></li>
-					<li><a href="/notifications" class="nav-link scrollto"><i class="bx bx-bell"></i>
+					<li th:if="${isMusician}"><a href="/notifications" class="nav-link scrollto"><i class="bx bx-bell"></i>
 							<span>Notificações</span></a></li>
 					<li><a href="/logout" class="nav-link scrollto"><i class="bi bi-box-arrow-left"></i>
 							<span>Log Out</span></a></li>
@@ -87,7 +87,7 @@
 							<div class="member">
 								<a th:href="@{'/viewProfile/' + ${favorite.id}}">
 								<img th:if="${favorite.media[0].contentType.startsWith('image/')}"
-									th:src="@{'/file/content/' + ${favorite.media[0].getId()}}" alt=""/>
+									th:src="@{'/file/content/' + ${favorite.media[0].getId()}}" alt="" class="img-fluid rounded-circle resize"/>
 								</a>
 								<h4 th:text="${favorite.name}"></h4>
 								<span th:text="${favorite.instrument}"></span>
