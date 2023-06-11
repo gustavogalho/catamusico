@@ -1,7 +1,7 @@
 --AUTHENTICATION
---INSERT into login(id, email, password) VALUES
---(1001, 'teste@email.com', '$2a$12$LH5cu.KpBlN66i/zAfb2LOFXnAxM5H0CzWutY3ORnZZwu/Ad2Gc3i'),
---(1002, 'banda@email.com', '$2a$12$gCU43oUrg4PoJd3IbEPmeOeAvWYMDLw3xiCb5asAxFzOTG2opJgbS');
+INSERT into login(id, email, password) VALUES
+(1001, 'musico@email.com', '$2a$12$jA3gBREfCkr9FSpW5fSIq.5DWN1dssAPaZyhKP7NmUGTqqIOYUrK6'),
+(1002, 'banda@email.com', '$2a$12$gCU43oUrg4PoJd3IbEPmeOeAvWYMDLw3xiCb5asAxFzOTG2opJgbS');
 
 -- USER_ROLES
 --insert into login_roles (login_id, roles_id) values
@@ -10,7 +10,7 @@
 -- MUSICIAN
 --INSERT INTO musician (id, city, contact, experience_level, experiences, instrument, music_genre, name, state, login_id)
 --VALUES
---(1001, 'Nova Iorque', 'john@example.com', 'Intermediário', 'Tocou em uma banda local por 3 anos', 'Guitarra', 'Rock', 'John Smith', 'Acre', 1001);
+--(1001, 'Acrelandia', 'joana@example.com', 'Intermediário', 'Tocou em uma banda local por 3 anos', 'Guitarra', 'Rock', 'Joana Smith', 'Acre', 1001);
 -- (1002, 'Los Angeles', 'sarah@example.com', 'Avançado', 'Fez turnês com um artista famoso de pop', 'Piano', 'Pop', 'Sarah Johnson', 'Califórnia'),
 -- (1003, 'Londres', 'mike@example.com', 'Iniciante', 'Apresentou em pequenos locais locais', 'Bateria', 'Indie', 'Mike Anderson', 'Inglaterra'),
 -- (1004, 'Berlim', 'anna@example.com', 'Intermediário', 'Gravou em estúdio para um álbum de jazz', 'Saxofone', 'Jazz', 'Anna Müller', 'Alemanha'),
@@ -43,12 +43,13 @@
 --INSERT INTO notification (id, message, read, band_id, musician_id)
 --VALUES(1001, 'abc', false, 1001, 1001);
 
---insert into file(id, content,content_type) values
---(1001,  FILE_READ('classpath:/static/assets/img/testimonials/testimonials-1.jpg'), 'image/jpg'),
---(1002,  FILE_READ('classpath:/static/assets/img/testimonials/testimonials-2.jpg'), 'image/jpg'),;
+--FILES 
+--insert into file(id,content,content_type) values
+--(1001,  FILE_READ('http://media.istockphoto.com/id/1155368162/photo/beautiful-young-hipster-woman-with-curly-hair-with-red-guitar-in-neon-lights-rock-musician-is.jpg?s=612x612&w=0&k=20&c=L3vg8tdJUd_-aO0rF2C4ih_s2k3McWb1O7APjtNrW9k='), 'image/jpg'),
+--(1002,  FILE_READ('http://images.unsplash.com/photo-1549834125-80f9dda633c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXRodW1ibmFpbHx8NDQ5OTgxNnx8ZW58MHx8fHx8&auto=format&fit=crop&w=420&q=60'), 'image/jpg'),;
 
 --INSERT INTO musician_media (musician_id, media_id)
 --VALUES(1001, 1001);
-
+--
 --INSERT INTO band_media (band_id, media_id)
 --VALUES(1001, 1002);
