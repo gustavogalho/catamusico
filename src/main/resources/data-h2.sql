@@ -8,9 +8,15 @@ INSERT into login(id, email, password) VALUES
 --(1, 1),
 
 -- MUSICIAN
+<<<<<<< HEAD
 --INSERT INTO musician (id, city, contact, experience_level, experiences, instrument, music_genre, name, state, login_id)
 --VALUES
 --(1001, 'Acrelandia', 'joana@example.com', 'Intermediário', 'Tocou em uma banda local por 3 anos', 'Guitarra', 'Rock', 'Joana Smith', 'Acre', 1001);
+=======
+INSERT INTO musician (id, city, contact, experience_level, experiences, instrument, music_genre, name, state, login_id)
+VALUES
+(1001, 'Acrelandia', 'joana@example.com', 'Intermediário', 'Tocou em uma banda local por 3 anos', 'Guitarra', 'Rock', 'Joana Smith', 'Acre', 1001);
+>>>>>>> e9dc15cc97e35d1b278c5ed4d4742be519a9c149
 -- (1002, 'Los Angeles', 'sarah@example.com', 'Avançado', 'Fez turnês com um artista famoso de pop', 'Piano', 'Pop', 'Sarah Johnson', 'Califórnia'),
 -- (1003, 'Londres', 'mike@example.com', 'Iniciante', 'Apresentou em pequenos locais locais', 'Bateria', 'Indie', 'Mike Anderson', 'Inglaterra'),
 -- (1004, 'Berlim', 'anna@example.com', 'Intermediário', 'Gravou em estúdio para um álbum de jazz', 'Saxofone', 'Jazz', 'Anna Müller', 'Alemanha'),
@@ -22,9 +28,9 @@ INSERT into login(id, email, password) VALUES
 -- (1010, 'São Paulo', 'maria@example.com', 'Iniciante', 'Participou de apresentações de talentos escolares', 'Flauta', 'Pop', 'Maria Silva', 'São Paulo');
 
 --BAND
---INSERT INTO band (id, city, contact, music_genre, name, state, login_id)
---VALUES
---(1001, 'Nova Iorque', 'info@banda1.com', 'Rock', 'Banda do Rock', 'Nova York', 1002);
+INSERT INTO band (id, city, contact, music_genre, name, state, login_id)
+VALUES
+(1001, 'Nova Iorque', 'info@banda1.com', 'Rock', 'Banda do Rock', 'Nova York', 1002);
 -- (1002, 'Los Angeles', 'contato@banda2.com', 'Pop', 'Banda Popstar', 'Califórnia'),
 -- (1003, 'Londres', 'banda3@gmail.com', 'Indie', 'Indie Rockers', 'Inglaterra'),
 -- (1004, 'Berlim', 'banda4@gmail.com', 'Eletrônica', 'Electro Beats', 'Alemanha'),
@@ -44,6 +50,7 @@ INSERT into login(id, email, password) VALUES
 --VALUES(1001, 'abc', false, 1001, 1001);
 
 --FILES 
+<<<<<<< HEAD
 --insert into file(id,content,content_type) values
 --(1001,  FILE_READ('http://media.istockphoto.com/id/1155368162/photo/beautiful-young-hipster-woman-with-curly-hair-with-red-guitar-in-neon-lights-rock-musician-is.jpg?s=612x612&w=0&k=20&c=L3vg8tdJUd_-aO0rF2C4ih_s2k3McWb1O7APjtNrW9k='), 'image/jpg'),
 --(1002,  FILE_READ('http://images.unsplash.com/photo-1549834125-80f9dda633c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXRodW1ibmFpbHx8NDQ5OTgxNnx8ZW58MHx8fHx8&auto=format&fit=crop&w=420&q=60'), 'image/jpg'),;
@@ -53,3 +60,12 @@ INSERT into login(id, email, password) VALUES
 --
 --INSERT INTO band_media (band_id, media_id)
 --VALUES(1001, 1002);
+insert into file(id,content,content_type) values
+(1001,  FILE_READ('classpath:/static/assets/img/testimonials/testimonials-1.jpg'), 'image/jpg'),
+(1002,  FILE_READ('classpath:/static/assets/img/testimonials/testimonials-2.jpg'), 'image/jpg'),;
+
+INSERT INTO musician_media (musician_id, media_id)
+VALUES(1001, 1001);
+
+INSERT INTO band_media (band_id, media_id)
+VALUES(1001, 1002);
