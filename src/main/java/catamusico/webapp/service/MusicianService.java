@@ -1,13 +1,17 @@
 package catamusico.webapp.service;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import catamusico.webapp.bean.MusicianBean;
 import catamusico.webapp.bean.SearchBean;
+import catamusico.webapp.domain.File;
 import catamusico.webapp.domain.Musician;
+import catamusico.webapp.domain.Notification;
 import catamusico.webapp.repository.MusicianRepository;
 
 @Service
@@ -35,7 +39,6 @@ public class MusicianService {
 	public List<Musician> queryMusician(SearchBean searchBean) {
 		if (!searchBean.getState().isEmpty()) {
 			searchBean.setState(searchBean.getState().split("-")[1]);
-			// System.out.println(musicianRepository.findAllByState(searchBean.getState()));
 		}
 		System.out.println(searchBean.toString());
 		System.out.println(musicianRepository.findByQuery(searchBean.getInstrument(), searchBean.getExperienceLevel(),
@@ -48,4 +51,22 @@ public class MusicianService {
 		return musicianRepository.findByLoginId(loginId);
 	}
 
+	public Musician update(MusicianBean musician, List<File> filesavedlist) {
+		Musician musicianToUpdate = getOne(musician.getId());
+		musicianToUpdate.setCity(musician.getCity());
+		musicianToUpdate.setState(musician.getState().split("-")[1]);
+		musicianToUpdate.setContact(musician.getContact());
+		musicianToUpdate.setExperienceLevel(musician.getExperienceLevel());
+		musicianToUpdate.setExperiences(musician.getExperiences());
+		musicianToUpdate.setInstrument(musician.getInstrument());
+		musicianToUpdate.setMusicGenre(musician.getMusicGenre());
+		
+		List<File> fileList = musicianToUpdate.getMedia();
+
+        fileList.addAll(filesavedlist);
+        
+		musicianToUpdate.setMedia(fileList);
+
+		return musicianRepository.save(musicianToUpdate);
+	}
 }

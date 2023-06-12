@@ -2,44 +2,38 @@ package catamusico.webapp.bean;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import catamusico.webapp.domain.Musician;
+import catamusico.webapp.domain.Band;
 
-public class MusicianBean {
+public class BandBean {
 
 	private Long id;
 	private String city;
 	private String state;
 	private String musicGenre;
 	private String contact;
-	private String instrument;
 	private String experiences;
-	private String experienceLevel;
 	private MultipartFile[] files;
 
-	public MusicianBean() {
+	public BandBean() {
 	}
 
-	public MusicianBean(Musician musician) {
-		this.id = musician.getId();
-		this.city = musician.getCity();
-		this.state = musician.getState();
-		this.musicGenre = musician.getMusicGenre();
-		this.contact = musician.getContact();
-		this.instrument = musician.getInstrument();
-		this.experiences = musician.getExperiences();
-		this.experienceLevel = musician.getExperienceLevel();
+	public BandBean(Band band) {
+		this.id = band.getId();
+		this.city = band.getCity();
+		this.state = band.getState();
+		this.musicGenre = band.getMusicGenre();
+		this.contact = band.getContact();
+		this.experiences = band.getExperiences();
 	}
 
-	public MusicianBean(String city, String state, String musicGenre, String contact, String instrument,
-			String experiences, String experienceLevel,
+	public BandBean(String city, String state, String musicGenre, String contact,
+			String experiences,
 			MultipartFile[] files) {
 		this.city = city;
 		this.state = state;
 		this.musicGenre = musicGenre;
 		this.contact = contact;
-		this.instrument = instrument;
 		this.experiences = experiences;
-		this.experienceLevel = experienceLevel;
 		this.files = files;
 	}
 
@@ -83,28 +77,12 @@ public class MusicianBean {
 		this.contact = contact;
 	}
 
-	public String getInstrument() {
-		return instrument;
-	}
-
-	public void setInstrument(String instrument) {
-		this.instrument = instrument;
-	}
-
 	public String getExperiences() {
 		return experiences;
 	}
 
 	public void setExperiences(String experiences) {
 		this.experiences = experiences;
-	}
-
-	public String getExperienceLevel() {
-		return experienceLevel;
-	}
-
-	public void setExperienceLevel(String experienceLevel) {
-		this.experienceLevel = experienceLevel;
 	}
 
 	public MultipartFile[] getFiles() {

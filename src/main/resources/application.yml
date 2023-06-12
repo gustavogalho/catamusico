@@ -10,24 +10,24 @@ spring:
     enabled: true
     path: /db
   jpa:
-    database: mysql
+    # database: mysql
     show-sql: true
     hibernate:
       ddl-auto: update
-      dialect: org.hibernate.dialect.MySQL8Dialect
-  datasource:
+      dialect: org.hibernate.dialect.MySQL8Dialect  datasource:
     driverclassname: com.mysql.jdbc.Driver
+    
 #    initialization-mode: true   
     ##to run locally uncomment these lines above
-    #url: jdbc:mysql://localhost:3306/catamusico?createDatabaseIfNotExist=true
-    #username: root
-    #password: 
+    # url: jdbc:mysql://localhost:3306/catamusico?createDatabaseIfNotExist=true
+    # username: root
+    # password: 
     ## this will run in production, comment while running locally
-    url: jdbc:mysql://containers-us-west-154.railway.app:5842/railway?autoReconnect=true&useSSL=false
-    username: root
-    password: UN2xNapzP4LqAGHpksc3
-    #url: jdbc:h2:~/dev;DB_CLOSE_ON_EXIT=FALSE
-    #platform: h2
+    # url: jdbc:mysql://containers-us-west-154.railway.app:5842/railway?autoReconnect=true&useSSL=false
+    # username: root
+    # password: UN2xNapzP4LqAGHpksc3
+    url: jdbc:h2:~/dev;DB_CLOSE_ON_EXIT=FALSE
+    platform: h2
   servlet:
     multipart:
       max-file-size: 10MB

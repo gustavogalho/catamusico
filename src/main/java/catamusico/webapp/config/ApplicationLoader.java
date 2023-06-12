@@ -5,11 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-/**
- * Created by rodrigo on 3/28/17.
- *
- * Allows to load application parameters during startup
- */
 @Component
 public class ApplicationLoader implements CommandLineRunner {
 
