@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import catamusico.webapp.bean.BandBean;
 import catamusico.webapp.bean.MusicianBean;
 import catamusico.webapp.bean.RegisterBean;
 import catamusico.webapp.bean.SearchBean;
@@ -61,7 +62,8 @@ public class HomeController {
 	}
 
 	@PostMapping("/search")
-	public ModelAndView postSearch(Model model, @AuthenticationPrincipal CustomUserDetails activeUser, SearchBean searchBean) {
+	public ModelAndView postSearch(Model model, @AuthenticationPrincipal CustomUserDetails activeUser,
+			SearchBean searchBean) {
 		model = userIdentification(model, activeUser);
 		List<Musician> musicians = musicianService.queryMusician(searchBean);
 		ModelAndView mav = new ModelAndView("/search");
@@ -105,6 +107,29 @@ public class HomeController {
 		return "redirect:/home";
 	}
 
+	@PostMapping("/updateBand")
+	public String updateBand(BandBean band) {
+		List<File> fileSavedList = new ArrayList<>();
+		if (band.getFiles() != null && band.getFiles().length > 0) {
+
+			try {
+				for (MultipartFile file : band.getFiles()) {
+					if (!file.isEmpty()) {
+						File fileToSave = new File();
+						fileToSave.setContent(file.getBytes());
+						fileToSave.setContentType(file.getContentType());
+						fileToSave.setFilename(file.getOriginalFilename());
+						fileSavedList.add(fileService.saveFile(fileToSave));
+					}
+				}
+			} catch (IOException e) {
+				System.err.println("Error " + e.getLocalizedMessage());
+			}
+		}
+		bandService.update(band, fileSavedList);
+		return "redirect:/profile";
+	}
+
 	@PostMapping("/updateMusician")
 	public String updateMusician(MusicianBean musician) {
 		List<File> fileSavedList = new ArrayList<>();
@@ -124,8 +149,8 @@ public class HomeController {
 				System.err.println("Error " + e.getLocalizedMessage());
 			}
 		}
-		// musicianService.update(musician, filesavedlist);
-		return "redirect:/home";
+		musicianService.update(musician, fileSavedList);
+		return "redirect:/profile";
 	}
 
 	@GetMapping("/file/content/{id}")
@@ -206,16 +231,19 @@ public class HomeController {
 		boolean isMusician = loginService.isMusician(activeUser.getUsername());
 		model.addAttribute("isMusician", isMusician);
 		model.addAttribute("view", false);
+		
 
 		Login login = loginService.findByEmail(activeUser.getUsername());
 
 		if (isMusician) {
 			Musician musician = musicianService.findByLogin(login.getId());
 			model.addAttribute("musician", musician);
+			model.addAttribute("musicianBean", new MusicianBean(musician));
 
 		} else {
 			Band band = bandService.findByLoginId(login.getId());
 			model.addAttribute("band", band);
+			model.addAttribute("bandBean", new BandBean(band));
 		}
 
 		return new ModelAndView("/profile");

@@ -7,7 +7,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import catamusico.webapp.bean.BandBean;
+import catamusico.webapp.bean.MusicianBean;
 import catamusico.webapp.domain.Band;
+import catamusico.webapp.domain.File;
 import catamusico.webapp.domain.Musician;
 import catamusico.webapp.repository.BandRepository;
 
@@ -55,4 +58,21 @@ public class BandService {
     public Band findByLoginId(Long loginId) {
         return bandRepository.findByLoginId(loginId);
     }
+
+    public Band update(BandBean band, List<File> filesavedlist) {
+		Band bandToUpdate = getOne(band.getId());
+		bandToUpdate.setCity(band.getCity());
+		bandToUpdate.setState(band.getState().split("-")[1]);
+		bandToUpdate.setContact(band.getContact());
+		bandToUpdate.setExperiences(band.getExperiences());
+		bandToUpdate.setMusicGenre(band.getMusicGenre());
+		
+		List<File> fileList = bandToUpdate.getMedia();
+
+        fileList.addAll(filesavedlist);
+        
+		bandToUpdate.setMedia(fileList);
+
+		return bandRepository.save(bandToUpdate);
+	}
 }

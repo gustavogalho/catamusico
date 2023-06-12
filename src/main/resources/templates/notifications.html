@@ -106,8 +106,7 @@
 										th:src="@{'/file/content/' + ${notification.band.media[0].getId()}}" alt="" class="img-fluid rounded-circle resize"/>
 								</div>
 								<div class="notification-list_detail">
-									<p><b th:text="${notification.band.name}"></b> Favoritou seu perfil</p>
-									<p th:text="${notification.band.experiences}" class="text-muted"></p>
+									<p style="text-align:center" ><b th:text="${notification.band.name}"></b> Favoritou seu perfil</p>
 								</div>
 							</div>
 							<a th:href="@{'/notifications/read/' + ${notification.id}}" class="btn btn-primary btn-lg active" role="button"
@@ -122,8 +121,7 @@
 										th:src="@{'/file/content/' + ${notification.band.media[0].getId()}}" alt="" class="img-fluid rounded-circle resize"/>
 								</div>
 								<div class="notification-list_detail">
-									<p><b th:text="${notification.band.name}"></b> Favoritou seu perfil</p>
-									<p th:text="${notification.band.experiences}" class="text-muted"></p>
+									<p tyle="text-align:center"><b th:text="${notification.band.name}"></b> Favoritou seu perfil</p>
 								</div>
 							</div>
 							<a th:href="@{'/notifications/read/' + ${notification.id}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Ver perfil</a>

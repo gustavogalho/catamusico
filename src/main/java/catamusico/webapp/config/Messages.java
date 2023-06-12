@@ -8,9 +8,6 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.Locale;
 
-/**
- * Created by rodrigo on 3/16/17.
- */
 @Component
 public class Messages {
 
