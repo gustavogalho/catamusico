@@ -139,19 +139,30 @@
 				</form>
 				<br>
 				<div class="row">
-					<div th:each="musician: ${musicians}" class="col-lg-4 col-md-6 mb-4">
-						<a href="/" class="link-dark">
-							<div class="member">
+					<div th:if="${isMusician == false}" th:each="musician: ${musicians}" class="col-lg-4 col-md-6 mb-4">
+						<div class="member">
+							<a th:href="@{'/viewProfile/' + ${musician.id}}">
 								<img th:if="${musician.media[0].contentType.startsWith('image/')}"
-									th:src="@{'/file/content/' + ${musician.media[0].getId()}}"
-									class="img-fluid rounded-circle resize" />
-								<pre th:unless="${musician.media[0].contentType.startsWith('image/')}">
-								        <span th:text="${file.content}"></span>
-								    </pre>
-								<h4 th:text="${musician.name}"></h4>
-								<span th:text="${musician.instrument}"></span>
+									th:src="@{'/file/content/' + ${musician.media[0].getId()}}" alt="" class="img-fluid rounded-circle resize"/>
+							</a>
+							<pre th:unless="${musician.media[0].contentType.startsWith('image/')}">
+								<span th:text="${file.content}"></span>
+							</pre>
+							<h4 th:text="${musician.name}"></h4>
+							<span th:text="${musician.instrument}"></span>
+							<div th:if="${isMusician == false}" class="d-flex flex-row-reverse">
+								<form th:action="@{'/addFavorites/' + ${musician.id}}" method="post">
+									<button th:if="${band.favorites.contains(musician)}" disabled
+										class="btn btn-outline-danger">
+										<i class="bi bi-heart-fill"></i>
+									</button>
+									<button th:if="${!band.favorites.contains(musician)}" type="submit"
+										class="btn btn-outline-danger">
+										<i class="bx bx-heart"></i>
+									</button>
+								</form>
 							</div>
-						</a>
+						</div>
 					</div>
 				</div>
 
