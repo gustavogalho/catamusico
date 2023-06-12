@@ -13,11 +13,11 @@ spring:
     # database: mysql
     show-sql: true
     hibernate:
-      ddl-auto: none
-      # dialect: org.hibernate.dialect.MySQL5Dialect
-
-  datasource:
-    # driverclassname: com.mysql.jdbc.Driver
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL8Dialect  datasource:
+    driverclassname: com.mysql.jdbc.Driver
+    
+#    initialization-mode: true   
     ##to run locally uncomment these lines above
     # url: jdbc:mysql://localhost:3306/catamusico?createDatabaseIfNotExist=true
     # username: root
