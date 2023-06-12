@@ -49,27 +49,33 @@
 
 			</div>
 			<div th:if="${isMusician == false}" class="profile">
-				<img th:if="${band.media[0].contentType.startsWith('image/')}" th:src="@{'/file/content/' + ${band.media[0].getId()}}" alt=""
-					class="img-fluid rounded-circle">
+				<img th:if="${band.media[0].contentType.startsWith('image/')}"
+					th:src="@{'/file/content/' + ${band.media[0].getId()}}" alt="" class="img-fluid rounded-circle resize">
 				<h1 class="text-light">
 					<p th:text="${band.name}"></p>
 				</h1>
 			</div>
 			<div th:if="${isMusician == true}" class="profile">
-				<img th:if="${musician.media[0].contentType.startsWith('image/')}" th:src="@{'/file/content/' + ${musician.media[0].getId()}}" alt=""
-					class="img-fluid rounded-circle">
+				<img th:if="${musician.media[0].contentType.startsWith('image/')}"
+					th:src="@{'/file/content/' + ${musician.media[0].getId()}}" alt="" class="img-fluid rounded-circle resize">
 				<h1 class="text-light">
 					<p th:text="${musician.name}"></p>
 				</h1>
 			</div>
 			<nav id="navbar" class="nav-menu navbar">
 				<ul>
-					<li><a href="/home" class="nav-link scrollto"><i class="bx bx-home"></i> <span>Inicio</span></a></li>
-					<li th:if="${isMusician != true}"><a href="/search" class="nav-link scrollto"><i class="bx bx-search"></i> <span>Buscar</span></a></li>
-					<li><a href="/profile" class="nav-link scrollto active"><i class="bx bx-user"></i> <span>Perfil</span></a></li>
-					<li th:if="${isMusician != true}"><a href="/favorites" class="nav-link scrollto"><i class="bx bx-heart"></i> <span>Favoritos</span></a></li>
-					<li><a href="/notifications" class="nav-link scrollto"><i class="bx bx-bell"></i> <span>Notificações</span></a></li>
-					<li><a href="/logout" class="nav-link scrollto"><i class="bi bi-box-arrow-left"></i> <span>Log Out</span></a></li>
+					<li><a href="/home" class="nav-link scrollto"><i class="bx bx-home"></i> <span>Inicio</span></a>
+					</li>
+					<li th:if="${isMusician != true}"><a href="/search" class="nav-link scrollto"><i
+								class="bx bx-search"></i> <span>Buscar</span></a></li>	
+					<li><a href="/profile" class="nav-link scrollto active"><i class="bx bx-user"></i>
+							<span>Perfil</span></a></li>
+					<li th:if="${isMusician != true}"><a href="/favorites" class="nav-link scrollto"><i
+								class="bx bx-heart"></i> <span>Favoritos</span></a></li>
+					<li th:if="${isMusician}"><a href="/notifications" class="nav-link scrollto"><i class="bx bx-bell"></i>
+							<span>Notificações</span></a></li>
+					<li><a href="/logout" class="nav-link scrollto"><i class="bi bi-box-arrow-left"></i>
+							<span>Log Out</span></a></li>
 				</ul>
 			</nav>
 			<!-- .nav-menu -->
@@ -92,7 +98,25 @@
 					<div th:if="${view == true && isMusician == false}" class="register-form">
 						<form id="form-login">
 							<div>
-								<img th:if="${viewMusician.media[0].contentType.startsWith('image/')}" th:src="@{'/file/content/' + ${viewMusician.media[0].getId()}}" alt="" />
+								<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+									<div class="carousel-inner">
+										<div th:each="media: ${viewMusician.media}" class="carousel-item active">
+											<img th:if="${media.contentType.startsWith('image/')}"
+												th:src="@{'/file/content/' + ${media.getId()}}" class="d-block w-100"
+												alt="...">
+										</div>
+									</div>
+									<button class="carousel-control-prev" type="button"
+										data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+										<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+										<span class="visually-hidden">Previous</span>
+									</button>
+									<button class="carousel-control-next" type="button"
+										data-bs-target="#carouselExampleControls" data-bs-slide="next">
+										<span class="carousel-control-next-icon" aria-hidden="true"></span>
+										<span class="visually-hidden">Next</span>
+									</button>
+								</div>
 							</div>
 							<br>
 							<div class="form-group">
@@ -119,9 +143,10 @@
 									th:value="${viewMusician.experienceLevel}" readonly>
 							</div>
 							<div id="experiences-div" class="form-group">
-								<label for="experiences">Experiencias</label> <input id="name" name="name" type="text" class="form-control" th:value="${viewMusician.experiences}"
-									readonly>
+								<label for="experiences">Experiencias</label>
+								<textarea th:field="${viewMusician.experiences}" class="form-control" id="experiences" rows="5" readonly></textarea>
 							</div>
+
 							<br>
 							<button th:if="${!band.favorites.contains(musician)}" type="submit" class="btn btn-secondary">Favoritar</button>
 						</form>
@@ -130,8 +155,25 @@
 					<!-- view your own profile as band -->
 					<div th:if="${view == false && isMusician == false}" class="register-form">
 						<div>
-							<img th:if="${band.media[0].contentType.startsWith('image/')}" th:src="@{'/file/content/' + ${band.media[0].getId()}}" alt="" /> <input type="file"
-								class="form-control-file" id="media">
+							<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+								<div class="carousel-inner">
+									<div th:each="media: ${band.media}" class="carousel-item active">
+										<img th:if="${media.contentType.startsWith('image/')}"
+											th:src="@{'/file/content/' + ${media.getId()}}" class="d-block w-100"
+											alt="...">
+									</div>
+								</div>
+								<button class="carousel-control-prev" type="button"
+									data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+									<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+									<span class="visually-hidden">Previous</span>
+								</button>
+								<button class="carousel-control-next" type="button"
+									data-bs-target="#carouselExampleControls" data-bs-slide="next">
+									<span class="carousel-control-next-icon" aria-hidden="true"></span>
+									<span class="visually-hidden">Next</span>
+								</button>
+							</div>
 						</div>
 						<br>
 						<form>
@@ -163,43 +205,60 @@
 					</div>
 					<!-- view your own profile as musician -->
 					<div th:if="${view == false && isMusician == true}" class="register-form">
-						<div>
-							<img th:if="${musician.media[0].contentType.startsWith('image/')}" th:src="@{'/file/content/' + ${musician.media[0].getId()}}" alt="" /> <input
-								type="file" class="form-control-file">
-						</div>
-						<br>
-						<form method="post" th:object="${musician}" th:action="@{/updateMusician}" enctype="multipart/form-data">
-						    <input type="hidden" id="id" th:field="${musician.id}">
+						<form id="form-login">
+							<div>
+								<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+									<div class="carousel-inner">
+										<div th:each="media: ${musician.media}" class="carousel-item active">
+											<img th:if="${media.contentType.startsWith('image/')}"
+												th:src="@{'/file/content/' + ${media.getId()}}" class="d-block w-100"
+												alt="...">
+										</div>
+									</div>
+									<button class="carousel-control-prev" type="button"
+										data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+										<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+										<span class="visually-hidden">Previous</span>
+									</button>
+									<button class="carousel-control-next" type="button"
+										data-bs-target="#carouselExampleControls" data-bs-slide="next">
+										<span class="carousel-control-next-icon" aria-hidden="true"></span>
+										<span class="visually-hidden">Next</span>
+									</button>
+								</div>
+
+							</div>
+							<br>
 							<div class="form-group">
-								<label>Nome</label> <input id="name" name="name" type="text" class="form-control" th:value="${musician.name}" readonly>
+								<label>Nome</label> <input id="name" name="name" type="text" class="form-control"
+									th:value="${musician.name}" readonly>
 							</div>
 							<div class="form-group">
-								<label>Estado</label> <select th:field="${musician.state}" th:value="${musician.state}" class="form-control" id="state" required>
-									<option value="">Estado</option>
+								<label>Estado</label>
+								<select th:field="${musician.state}" class="form-control" id="state" required>
 								</select>
 							</div>
 							<div class="form-group">
-								<label>Cidade</label> <select th:field="${musician.city}" th:value="${musician.city}" class="form-control" id="city" required>
+								<label>Cidade</label>
+								<select th:field="${musician.city}" class="form-control" id="city" required>
 								</select>
 							</div>
 							<div class="form-group">
-								<label>Genero Musical</label> <input th:field="${musician.musicGenre}" id="musicGenre" name="musicGenre" type="text" class="form-control"
-									placeholder="Genero Musical" required>
+								<label>Genero Musical</label> <input th:field="*{musician.musicGenre}" id="musicGenre"
+									name="musicGenre" type="text" class="form-control" placeholder="Genero Musical"
+									required>
 							</div>
 							<div class="form-group">
-								<label>Contato</label> <input th:field="*{musician.contact}" id="contact" name="contact" type="text" class="form-control" placeholder="Contato" required>
-								<small id="contactHelpText" class="form-text text-muted"> Insira aqui seu telefone, email ou sua rede social para ser contatado </small>
-							</div>
-							<div class="form-group">
-								<label for="experiences">Experiencias</label>
-								<textarea th:field="${musician.experiences}" class="form-control" id="experiences" rows="3" required></textarea>
-							</div>
-							<div id="media-div" class="form-group">
-								<label for="media">Midia</label> <input type="file" multiple class="form-control-file" id="media" th:field="${musician.files}" accept="image/*,video/*">
-								<small id="mediaHelpText" class="form-text text-muted"> Insira aqui arquivos para seu portfólio musical.</small>
+								<label>Contato</label> <input th:field="*{musician.contact}" id="contact" name="contact"
+									type="text" class="form-control" placeholder="Contato" required>
+								<small id="contactHelpText" class="form-text text-muted"> Insira aqui seu telefone,
+									email ou
+									sua
+									rede social para ser contatado </small>
 							</div>
 							<div id="instrument-div" class="form-group">
-								<label>Instrumento</label> <select th:field="${musician.instrument}" class="form-control" id="instrument" name="instrument">
+								<label>Instrumento</label> <select th:field="*{musician.instrument}"
+									class="form-control" id="instrument" name="instrument">
 									<option value="">Instrumento</option>
 									<option value="Baixo">Baixo</option>
 									<option value="Bateria">Bateria</option>
@@ -208,7 +267,9 @@
 								</select>
 							</div>
 							<div id="experienceLevel-div" class="form-group">
-								<label for="experienceLevel">Nível de conhecimento</label> <select th:field="${musician.experienceLevel}" class="form-control" id="experienceLevel">
+								<label for="experienceLevel">Nível de conhecimento</label>
+								<select th:field="*{musician.experienceLevel}" class="form-control"
+									id="experienceLevel">
 									<option value="">Nível de conhecimento</option>
 									<option value="Iniciante">Iniciante</option>
 									<option value="Intermediário">Intermediário</option>
@@ -223,7 +284,25 @@
 					<div th:if="${view == true && isMusician == true}" class="register-form">
 						<form id="form-login">
 							<div>
-								<img th:if="${viewBand.media[0].contentType.startsWith('image/')}" th:src="@{'/file/content/' + ${viewBand.media[0].getId()}}" alt="" />
+								<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+									<div class="carousel-inner">
+										<div th:each="media: ${viewBand.media}" class="carousel-item active">
+											<img th:if="${media.contentType.startsWith('image/')}"
+												th:src="@{'/file/content/' + ${media.getId()}}" class="d-block w-100"
+												alt="...">
+										</div>
+									</div>
+									<button class="carousel-control-prev" type="button"
+										data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+										<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+										<span class="visually-hidden">Previous</span>
+									</button>
+									<button class="carousel-control-next" type="button"
+										data-bs-target="#carouselExampleControls" data-bs-slide="next">
+										<span class="carousel-control-next-icon" aria-hidden="true"></span>
+										<span class="visually-hidden">Next</span>
+									</button>
+								</div>
 							</div>
 							<br>
 							<div class="form-group">
@@ -242,16 +321,12 @@
 								<label>Contato</label> <input id="contact" name="contact" type="text" class="form-control" th:value="${viewBand.contact}" readonly>
 							</div>
 							<div id="experiences-div" class="form-group">
-								<label for="experiences">Experiencias</label> <input id="name" name="name" type="text" class="form-control" th:value="${viewBand.experiences}" readonly>
+								<label for="experiences">Experiencias</label>
+								<textarea th:field="${viewBand.experiences}" class="form-control" id="experiences" rows="5" readonly></textarea>
 							</div>
 						</form>
 					</div>
-
 				</div>
-			</div>
-
-			</div>
-
 			</div>
 		</section>
 		<!-- End Team Section -->

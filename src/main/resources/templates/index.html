@@ -25,6 +25,7 @@
 	<link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
 	<link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
 	<link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
 	<link href="/css/style.css" rel="stylesheet">
 
 	<!-- Template Main CSS File -->
@@ -46,14 +47,14 @@
 			</div>
 			<div th:if="${isMusician == false}" class="profile">
 				<img th:if="${band.media[0].contentType.startsWith('image/')}"
-					th:src="@{'/file/content/' + ${band.media[0].getId()}}" alt="" class="img-fluid rounded-circle">
+					th:src="@{'/file/content/' + ${band.media[0].getId()}}" alt="" class="img-fluid rounded-circle resize">
 				<h1 class="text-light">
 					<p th:text="${band.name}"></p>
 				</h1>
 			</div>
 			<div th:if="${isMusician == true}" class="profile">
 				<img th:if="${musician.media[0].contentType.startsWith('image/')}"
-					th:src="@{'/file/content/' + ${musician.media[0].getId()}}" alt="" class="img-fluid rounded-circle">
+					th:src="@{'/file/content/' + ${musician.media[0].getId()}}" alt="" class="img-fluid rounded-circle resize" >
 				<h1 class="text-light">
 					<p th:text="${musician.name}"></p>
 				</h1>
@@ -70,7 +71,8 @@
 					<li th:if="${isMusician != true}"><a href="/favorites" class="nav-link scrollto"><i
 								class="bx bx-heart"></i>
 							<span>Favoritos</span></a></li>
-					<li><a href="/notifications" class="nav-link scrollto"><i class="bx bx-bell"></i>
+					<li th:if="${isMusician == true}"><a href="/notifications" class="nav-link scrollto"><i
+								class="bx bx-bell"></i>
 							<span>Notificações</span></a></li>
 					<li><a href="/logout" class="nav-link scrollto"><i class="bi bi-box-arrow-left"></i>
 							<span>Log Out</span></a></li>
@@ -96,7 +98,7 @@
 						<div class="member">
 							<a th:href="@{'/viewProfile/' + ${musician.id}}">
 								<img th:if="${musician.media[0].contentType.startsWith('image/')}"
-									th:src="@{'/file/content/' + ${musician.media[0].getId()}}" alt="" />
+									th:src="@{'/file/content/' + ${musician.media[0].getId()}}" alt="" class="img-fluid rounded-circle resize"/>
 							</a>
 							<pre th:unless="${musician.media[0].contentType.startsWith('image/')}">
 								<span th:text="${file.content}"></span>
@@ -121,19 +123,30 @@
 						<div class="member">
 							<a th:href="@{'/viewProfile/' + ${band.id}}">
 								<img th:if="${band.media[0].contentType.startsWith('image/')}"
-									th:src="@{'/file/content/' + ${band.media[0].getId()}}" alt="" />
+									th:src="@{'/file/content/' + ${band.media[0].getId()}}" alt="" class="img-fluid rounded-circle resize"/>
 							</a>
-							<pre th:unless="${band.media[0].contentType.startsWith('image/')}">
-								<span th:text="${file.content}"></span>
-							</pre>
 							<h4 th:text="${band.name}"></h4>
 							<span th:text="${band.musicGenre}"></span>
 						</div>
 					</div>
 				</div>
+
 		</section>
 		<!-- End Team Section -->
 
+		<div th:if="${newNotification == true && isMusician}" style="width:1550px; height:160px; position: relative">
+			<div style="font-weight:bold; text-align:right;position: absolute;bottom: 0; right: 0; ">
+				<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+					<div class="toast-header">
+						<i class="bx bx-bell"></i>
+						<strong class="mr-auto"> Notificação</strong>
+					</div>
+					<div class="toast-body">
+						Você possui notificações não visualizadas!!
+					</div>
+				</div>
+			</div>
+		</div>
 
 	</main>
 	<!-- End #main -->
@@ -155,6 +168,11 @@
 	<script src="/assets/vendor/typed.js/typed.min.js"></script>
 	<script src="/assets/vendor/waypoints/noframework.waypoints.js"></script>
 	<script src="/assets/vendor/php-email-form/validate.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" language="javascript" src="/js/toasts.js"></script>
 
 	<!-- Template Main JS File -->
 	<script src="/assets/js/main.js"></script>

@@ -15,6 +15,7 @@ spring:
     hibernate:
       ddl-auto: create
       dialect: org.hibernate.dialect.MySQL5Dialect
+
   datasource:
     driverclassname: com.mysql.jdbc.Driver
     ##to run locally uncomment these lines above

@@ -57,7 +57,7 @@ public class Notification {
         this.band = band;
     }
 
-    public boolean isRead() {
+    public boolean getRead() {
         return read;
     }
 
