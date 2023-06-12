@@ -1,10 +1,5 @@
 package catamusico.webapp.controller;
 
-import java.util.List;
-
-import javax.naming.directory.SearchControls;
-import javax.websocket.server.PathParam;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,16 +12,13 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import catamusico.webapp.bean.MusicianBean;
 import catamusico.webapp.bean.RegisterBean;
 import catamusico.webapp.bean.SearchBean;
 import catamusico.webapp.domain.Band;
@@ -105,6 +97,29 @@ public class HomeController {
 		} else {
 			bandService.createBand(new Band(registerBean, login, fileSavedList));
 		}
+		return "redirect:/home";
+	}
+
+	@PostMapping("/updateMusician")
+	public String updateMusician(MusicianBean musician) {
+		List<File> fileSavedList = new ArrayList<>();
+		if (musician.getFiles() != null && musician.getFiles().length > 0) {
+
+			try {
+				for (MultipartFile file : musician.getFiles()) {
+					if (!file.isEmpty()) {
+						File fileToSave = new File();
+						fileToSave.setContent(file.getBytes());
+						fileToSave.setContentType(file.getContentType());
+						fileToSave.setFilename(file.getOriginalFilename());
+						fileSavedList.add(fileService.saveFile(fileToSave));
+					}
+				}
+			} catch (IOException e) {
+				System.err.println("Error " + e.getLocalizedMessage());
+			}
+		}
+		// musicianService.update(musician, filesavedlist);
 		return "redirect:/home";
 	}
 
