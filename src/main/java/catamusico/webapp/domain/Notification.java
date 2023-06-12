@@ -18,7 +18,7 @@ public class Notification {
 
     @ManyToOne
     private Band band;
-    private boolean read;
+    private boolean isRead;
 
 
     public Notification() {
@@ -58,10 +58,10 @@ public class Notification {
     }
 
     public boolean getRead() {
-        return read;
+        return isRead;
     }
 
     public void setRead(boolean read) {
-        this.read = read;
+        this.isRead = read;
     }
 }
