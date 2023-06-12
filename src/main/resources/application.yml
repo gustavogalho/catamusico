@@ -15,7 +15,7 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: update
-      dialect: org.hibernate.dialect.MySQL5Dialect
+      dialect: org.hibernate.dialect.MySQL8Dialect
   datasource:
     driverclassname: com.mysql.jdbc.Driver
 #    initialization-mode: true   
