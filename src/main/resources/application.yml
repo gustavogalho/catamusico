@@ -22,7 +22,7 @@ spring:
     # username: root
     # password: 
     ## this will run in production, comment while running locally
-    url: jdbc:mysql://containers-us-west-154.railway.app:5842/railway?autoReconnect=true&useSSL=false
+    url: jdbc:mysql://containers-us-west-154.railway.app:5842/railway?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: UN2xNapzP4LqAGHpksc3
     #url: jdbc:h2:~/dev;DB_CLOSE_ON_EXIT=FALSE
